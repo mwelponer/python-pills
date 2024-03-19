@@ -1,4 +1,4 @@
-Python pills
+Python-pills
 ============
 Copyright (C) 2018 Michele Welponer
 
