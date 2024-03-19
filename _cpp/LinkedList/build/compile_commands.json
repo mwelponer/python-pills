@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/LinkedList/build",
+  "command": "/usr/bin/clang++  -I/Users/mike/dev/neetcode/_cpp/LinkedList/include -I/Users/mike/dev/neetcode/_cpp/LinkedList/../include  -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/LinkedList.dir/LinkedList.cpp.o -c /Users/mike/dev/neetcode/_cpp/LinkedList/LinkedList.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/LinkedList/LinkedList.cpp",
+  "output": "CMakeFiles/LinkedList.dir/LinkedList.cpp.o"
+}
+]

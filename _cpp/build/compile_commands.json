@@ -1,0 +1,122 @@
+[
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/_test",
+  "command": "/usr/bin/clang++    -std=c++17 -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/_test.dir/main.cpp.o -c /Users/mike/dev/neetcode/_cpp/_test/main.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/_test/main.cpp",
+  "output": "_test/CMakeFiles/_test.dir/main.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/_test",
+  "command": "/usr/bin/clang++    -std=c++17 -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/_test.dir/printArray.cpp.o -c /Users/mike/dev/neetcode/_cpp/_test/printArray.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/_test/printArray.cpp",
+  "output": "_test/CMakeFiles/_test.dir/printArray.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/_test",
+  "command": "/usr/bin/clang++    -std=c++17 -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/_test.dir/parseString.cpp.o -c /Users/mike/dev/neetcode/_cpp/_test/parseString.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/_test/parseString.cpp",
+  "output": "_test/CMakeFiles/_test.dir/parseString.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/_test",
+  "command": "/usr/bin/clang++    -std=c++17 -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/_test.dir/printSet.cpp.o -c /Users/mike/dev/neetcode/_cpp/_test/printSet.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/_test/printSet.cpp",
+  "output": "_test/CMakeFiles/_test.dir/printSet.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/_test",
+  "command": "/usr/bin/clang++    -std=c++17 -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/_test.dir/sumVector2.cpp.o -c /Users/mike/dev/neetcode/_cpp/_test/sumVector2.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/_test/sumVector2.cpp",
+  "output": "_test/CMakeFiles/_test.dir/sumVector2.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/_test",
+  "command": "/usr/bin/clang++    -std=c++17 -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/_test.dir/passByRef.cpp.o -c /Users/mike/dev/neetcode/_cpp/_test/passByRef.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/_test/passByRef.cpp",
+  "output": "_test/CMakeFiles/_test.dir/passByRef.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/_test",
+  "command": "/usr/bin/clang++    -std=c++17 -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/_test.dir/incStatic.cpp.o -c /Users/mike/dev/neetcode/_cpp/_test/incStatic.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/_test/incStatic.cpp",
+  "output": "_test/CMakeFiles/_test.dir/incStatic.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/_test",
+  "command": "/usr/bin/clang++    -std=c++17 -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/_test.dir/classTest.cpp.o -c /Users/mike/dev/neetcode/_cpp/_test/classTest.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/_test/classTest.cpp",
+  "output": "_test/CMakeFiles/_test.dir/classTest.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/_test",
+  "command": "/usr/bin/clang++    -std=c++17 -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/_test.dir/smartPtr.cpp.o -c /Users/mike/dev/neetcode/_cpp/_test/smartPtr.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/_test/smartPtr.cpp",
+  "output": "_test/CMakeFiles/_test.dir/smartPtr.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/_test",
+  "command": "/usr/bin/clang++    -std=c++17 -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/_test.dir/testing.cpp.o -c /Users/mike/dev/neetcode/_cpp/_test/testing.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/_test/testing.cpp",
+  "output": "_test/CMakeFiles/_test.dir/testing.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/_test",
+  "command": "/usr/bin/clang++    -std=c++17 -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/test_another.dir/another.cpp.o -c /Users/mike/dev/neetcode/_cpp/_test/another.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/_test/another.cpp",
+  "output": "_test/CMakeFiles/test_another.dir/another.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/ArraysAndHashing",
+  "command": "/usr/bin/clang++  -I/Users/mike/dev/neetcode/_cpp/ArraysAndHashing/include -I/Users/mike/dev/neetcode/_cpp/ArraysAndHashing/../include  -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/ArraysAndHashing.dir/ArraysAndHashing.cpp.o -c /Users/mike/dev/neetcode/_cpp/ArraysAndHashing/ArraysAndHashing.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/ArraysAndHashing/ArraysAndHashing.cpp",
+  "output": "ArraysAndHashing/CMakeFiles/ArraysAndHashing.dir/ArraysAndHashing.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/TwoPointers",
+  "command": "/usr/bin/clang++  -I/Users/mike/dev/neetcode/_cpp/TwoPointers/include -I/Users/mike/dev/neetcode/_cpp/TwoPointers/../include  -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/TwoPointers.dir/TwoPointers.cpp.o -c /Users/mike/dev/neetcode/_cpp/TwoPointers/TwoPointers.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/TwoPointers/TwoPointers.cpp",
+  "output": "TwoPointers/CMakeFiles/TwoPointers.dir/TwoPointers.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/SlidingWindow",
+  "command": "/usr/bin/clang++  -I/Users/mike/dev/neetcode/_cpp/SlidingWindow/include -I/Users/mike/dev/neetcode/_cpp/SlidingWindow/../include  -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/SlidingWindow.dir/SlidingWindow.cpp.o -c /Users/mike/dev/neetcode/_cpp/SlidingWindow/SlidingWindow.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/SlidingWindow/SlidingWindow.cpp",
+  "output": "SlidingWindow/CMakeFiles/SlidingWindow.dir/SlidingWindow.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/Stack",
+  "command": "/usr/bin/clang++  -I/Users/mike/dev/neetcode/_cpp/Stack/include -I/Users/mike/dev/neetcode/_cpp/Stack/../include  -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/Stack.dir/Stack.cpp.o -c /Users/mike/dev/neetcode/_cpp/Stack/Stack.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/Stack/Stack.cpp",
+  "output": "Stack/CMakeFiles/Stack.dir/Stack.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/BinarySearch",
+  "command": "/usr/bin/clang++  -I/Users/mike/dev/neetcode/_cpp/BinarySearch/include -I/Users/mike/dev/neetcode/_cpp/BinarySearch/../include  -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/BinarySearch.dir/BinarySearch.cpp.o -c /Users/mike/dev/neetcode/_cpp/BinarySearch/BinarySearch.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/BinarySearch/BinarySearch.cpp",
+  "output": "BinarySearch/CMakeFiles/BinarySearch.dir/BinarySearch.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/LinkedList",
+  "command": "/usr/bin/clang++  -I/Users/mike/dev/neetcode/_cpp/LinkedList/include -I/Users/mike/dev/neetcode/_cpp/LinkedList/../include  -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/LinkedList.dir/LinkedList.cpp.o -c /Users/mike/dev/neetcode/_cpp/LinkedList/LinkedList.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/LinkedList/LinkedList.cpp",
+  "output": "LinkedList/CMakeFiles/LinkedList.dir/LinkedList.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/Trees",
+  "command": "/usr/bin/clang++  -I/Users/mike/dev/neetcode/_cpp/Trees/include -I/Users/mike/dev/neetcode/_cpp/Trees/../include  -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/Trees.dir/Trees.cpp.o -c /Users/mike/dev/neetcode/_cpp/Trees/Trees.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/Trees/Trees.cpp",
+  "output": "Trees/CMakeFiles/Trees.dir/Trees.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/HeapPriorityQueue",
+  "command": "/usr/bin/clang++  -I/Users/mike/dev/neetcode/_cpp/HeapPriorityQueue/include -I/Users/mike/dev/neetcode/_cpp/HeapPriorityQueue/../include  -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/HeapPriorityQueue.dir/HeapPriorityQueue.cpp.o -c /Users/mike/dev/neetcode/_cpp/HeapPriorityQueue/HeapPriorityQueue.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/HeapPriorityQueue/HeapPriorityQueue.cpp",
+  "output": "HeapPriorityQueue/CMakeFiles/HeapPriorityQueue.dir/HeapPriorityQueue.cpp.o"
+},
+{
+  "directory": "/Users/mike/dev/neetcode/_cpp/build/Graphs",
+  "command": "/usr/bin/clang++  -I/Users/mike/dev/neetcode/_cpp/Graphs/include -I/Users/mike/dev/neetcode/_cpp/Graphs/../include  -std=c++17 -g -std=gnu++17 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -mmacosx-version-min=12.6 -o CMakeFiles/Graphs.dir/Graphs.cpp.o -c /Users/mike/dev/neetcode/_cpp/Graphs/Graphs.cpp",
+  "file": "/Users/mike/dev/neetcode/_cpp/Graphs/Graphs.cpp",
+  "output": "Graphs/CMakeFiles/Graphs.dir/Graphs.cpp.o"
+}
+]
