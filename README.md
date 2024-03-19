@@ -1,6 +1,6 @@
 Python pills
 ============
-Copyright (C) 2023 Michele Welponer
+Copyright (C) 2018 Michele Welponer
 
 - [Overview](#overview)
   * [print](#print)
@@ -494,7 +494,7 @@ class Entity:
         return False
 
     # private method, prefix the member name with __
-    def __calculateAge(birthYear):
+    def __calculateAge(self, birthYear):
         return date.today().year - birthYear
 
     @staticmethod
@@ -543,7 +543,7 @@ class Person:
         return date.today().year - birthYear
     
     # private method: only self can use it!
-    def __somePrivate(something):
+    def __somePrivate(self, something):
         pass
 
     @classmethod
@@ -786,7 +786,6 @@ if 1 in mySet: # check element, complexity O(1)
 mySet.remove(1) # remove element, complexity O(1)
 mySet.clear() # empty the set
 
-mySet.pop() # remove least recent i.e. popleft
 len(mtSet) # number of elements in the set
 if mySet: # checks if the set is non-empty
 
@@ -1262,7 +1261,7 @@ prices = {"pineapple": 0.89, "apple": 1.57}
 min(prices) # min key by default >>> 'apple' 
 min(prices.values()) # >>> 0.89
 
-min(["20", "3", "35", "7"], key=int) # >>> 3 because we pass the build -in function int()
+min(["20", "3", "35", "7"], key=int) # >>> 3 because we pass the build-in function int()
 
 min([], default=42) # >>> 42 because the list is empty!
 
@@ -1661,7 +1660,7 @@ pd.Series({'x':9, 'y':8, 'z':5})
 it is a 2d data structure like a table with rows and columns (Series is like a column, a DataFrame is the whole table). Initialized using:
 
 1. from a file
-2. list o f list
+2. list of list
 3. dictionary: keys become the labels for the table columns, values are iterable objects
 4. list of dictionaries
 
@@ -1672,14 +1671,14 @@ it is a 2d data structure like a table with rows and columns (Series is like a c
 pd.read_csv('data.csv') # comma separated CSV file 
 pd.read_json('data.json') # json are like python dictionaries 
 
-##### using list of list
+##### using list of list, i.e. list of rows
 pd.DataFrame([[21, 54], [76, 43], [98, 93]], columns=['fild1', 'field2'])
 # >>>  filed1 field2 
 # >>> 0    21    54
 # >>> 1    76    43
 # >>> 3    98    93
 
-##### using dictionary
+##### using dictionary, i.e. key is the column label, value is the list of column values
 pd.DataFrame({'x':[9], 'y':[8], 'z':[1]}) # automatic indices 
 # >>>    x  y  z
 # >>> 0  9  8  1
@@ -1883,6 +1882,7 @@ to plot an histogram we just need 1 column, the other one will be the frequency
 
 ```python 
 df["Duration"].plot(kind = 'hist')
+plt.xlabel('duration')
 plt.show() # it represents the distribution of data of a specific column
 ```
 
@@ -1987,6 +1987,7 @@ def print_numbers():
 if __name__ == "__main__":
     thread = threading.Thread(target=print_numbers)
     thread.start()
+	thread.join(); # tells main thread to wait the end of thread before proceeding
 ```
 
 ## multi processing
