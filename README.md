@@ -1032,21 +1032,21 @@ def reverse(head):
 
 A node with max 2 children. 
 
-**depth**: tree root with no children has depth 1
-**height**: tree root with no children has height 0
-**balanced**: 
+- **depth**: tree root with no children has depth 1
+- **height**: tree root with no children has height 0
+- **balanced**: 
 	- height of left subt and height of right subt do not differ more then 1
     - left subt is balanced and right subt is balanced
-**complete**:
+- **complete**:
 	- all levels but the last are completely filled
 	- in the last level nodes are as left as possible
 	**NB**: height is always logn, arrays representation does not have gaps between elements
-***Heap***:
+- **Heap**:
 	- it is a complete BT and 
 	- every parent has its value greater (or equal) then all its descendent
-***Binary Search Tree***:
-	- the left subt contains only nodes with keys  *less than*  the node's key
-	- the right subt contains only nodes with keys  *greater than* the node's key.
+- **Binary Search Tree**:
+	- the left subt contains only nodes with keys *less than* the node's key
+	- the right subt contains only nodes with keys *greater than* the node's key.
 	- both the left and right subt must also be BST
 
 ```python
@@ -1169,9 +1169,9 @@ class Trie:
 
 ```python
 class Node:
-	def __init__(self, val=0, neighbors=None):
-		self.val = val
-		self.neighbors = neighbors if neighbors is not None else []
+    def __init__(self, val=0, neighbors=None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
 
     def __str__(self):
 	    # create a map of existing nodes
@@ -1206,7 +1206,8 @@ class Node:
 - **Dijkstra**: $O(ElogV)$ used to find the shortest path from a vertex to all the others, it uses a `min-heap` (a.k.a. `priority queue`) because it looks at the minimum edge E and an `hashset` to look for cycles. **HOWTO**: we insert the starting node inside a minheap with weight = 0, then we pop it, we check in the hashset if node was already seen, if not we add it to the hashset and we process all its adjacent nodes (BFS). That means we push neighboars into the heap with updated weights (neighboar weight = parent weight + neighboar weight). The heap elements are tuples (weight, node), so they will be popped according to the weight.
 - **Minimum spanning tree** 
 	- **Prim's Kruskal**: $O(n^2logn)$ used to find the minimum spanning tree. At the beginning we have vertices without edges, we want to find the most efficient way to connect all vertices without forming cycles, i.e. V-1 edges. Basically we start at any single node and we apply BFS checking not to repeat nodes using an `hashset` and checking the frontier of nodes using a `minheap` in order to start adding nodes from the minimum possible cost ones first. We stop when the number of nodes in the hashset is equal to the total number of nodes. **HOWTO**: we start from a node n, add it to the hashset visit, add it to the minheap frontier with null weigth (0, n). We then pop it out from the frontier, add it to the hashset, increment a cost variable by the weight of the popped node, then we add all node's neighboars to the frontier (checking the given adjacency list). We then continue to 1. pop the minimum from the frontier, 2. if in hashset continue 3. add it to the hashset, 4. update the cost variable and 5. add neighboars back into the frontier, till the hashset size equals the total number of nodes.
-- **Floyd warshall's**: 
+
+- **Floyd warshall's**: TODO!
 
 
 # Math 
