@@ -23,6 +23,7 @@ Copyright (C) 2018 Michele Welponer
     + [iterable and iterator](#iterable-and-iterator)
     + [abstract classes](#abstract-classes)
   * [Enumerations](#enumerations)
+  * [Constants](#constants)
 - [Data Structures](#data-structures)
   * [Array](#array)
   * [Stack](#stack)
@@ -659,6 +660,19 @@ for color in Color:
 # >>> Color.RED 
 # >>> Color.RED
 ```
+
+## Constants 
+
+to tell other programmers that a given value should be treated as a constant, you must use a widely accepted naming convention for the constant’s identifier or name. You should write the name in capital letters with underscores separating words.
+
+```python
+PI = 3.14
+MAX_SPEED = 300
+DEFAULT_COLOR = "\033[1;34m"
+WIDTH = 20
+```
+
+NB: it is just a convention, and it doesn’t prevent developers from assigning new values to your constant
 
 # Data Structures
 
