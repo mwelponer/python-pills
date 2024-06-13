@@ -1,6 +1,6 @@
-Python-pills
+Python pills
 ============
-Copyright (C) 2018 Michele Welponer
+Copyright (C) 2023 Michele Welponer
 
 - [Overview](#overview)
   * [print](#print)
@@ -23,7 +23,6 @@ Copyright (C) 2018 Michele Welponer
     + [iterable and iterator](#iterable-and-iterator)
     + [abstract classes](#abstract-classes)
   * [Enumerations](#enumerations)
-  * [Constants](#constants)
 - [Data Structures](#data-structures)
   * [Array](#array)
   * [Stack](#stack)
@@ -105,15 +104,15 @@ Copyright (C) 2018 Michele Welponer
 ```python
 name = "Alice"
 age = 45
-balance = 5.61243
+balance = 5.61743
 mydict = {'name':'Alice', 'age':35}
-print( "Hello, " + str(name) +  "!") # >>> Hello, Alice!
+print( "Hello, " + name +  "!") # >>> Hello, Alice!
 print( "Hello,", name, "!") # >>> Hello, Alice !
 
 ##### f-string 
 print( f"Hello, {name}, I am {age}!")
 f"result: {[n for n in range(5)]}" # expression >>> result: [0, 1, 2, 3, 4]
-f"Balance: ${balance:.2f}" # precision >>> Balance: 5.61
+f"Balance: ${balance:.2f}" # precision >>> Balance: 5.62
 f"{name:=^10}" # fill with = string lenght 10 center with ^ >>> ==Alice===
 f"thousand separators: {1000000:,}" # >>> thousand separators: 1,000,000
 f"separators + 2decimals: {1234567.9876:,.2f}" # >>> separators + 2decimals: 1,234,567.99
@@ -190,14 +189,17 @@ arr = ["ab", "cd", "ef"]
 
 s1 = f'{s}$d' # >>> 'a$b$c$d'
 
-s[0:2] # substring >>> a$
+s[0:3] # substring >>> a$b
+s[:3] # substring >>> a$b
+s[2:5] # substring >>> b$c
+s[2:] # substring >>> b$c 
 s[::-1] # reverse string >>> "c$b$a"
 s += "def" # a new string will be created >>> a$b$cdef
 
 int('123') + int('123') # string to int >>> 246
 str(123) + str(123) # int to string >>> 123123
-ord("a") # char to ascii value >>> 97
-chr(97) # int to ascii value >>> a
+ord("a") # char to ascii code >>> 97
+chr(97) # ascii code to ascii value >>> a
 
 'A'.lower() # char string to lowercase >>> a
 'a'.upper() # char string to uppercase >>> A
@@ -338,15 +340,24 @@ generators return an **iterable object**.
 
 ```python
 def PowTwoGen(max=0):
-    n = 0
-    while n < max:
-        yield 2 ** n
-        n += 1
+	for i in range(max):
+		yield 2**i
         
 for n in PowTwoGen(6): print(n) # >>> 1 2 4 8 16 32
 
 # or using list comprehension
 res = [n for n in PowTwoGen(6)]
+```
+
+so the power of generator is that I can start getting results without the need to wait for the whole process to end
+
+```python
+count =  0
+for i in powOf2(1000,000):
+	if count ==  10:
+		break
+	print(i)
+	count +=  1
 ```
 
 Example using generator and decorator together
@@ -365,11 +376,9 @@ def timeCount(func):
     return inner
 
 # generator, yields k powers of 2 
-def pows2Gen(k):
-    i = 0
-    while i < k:
-        yield 2**i
-        i += 1
+def pows2Gen(max=0):
+	for i in range(max):
+		yield 2**i
 
 # define main function with timeCount decorator to get elapsed time
 @timeCount
@@ -418,7 +427,7 @@ nums = [1, 2, 3, 4] # the iterable
 list( map(square, nums) ) # >>> [1, 4, 9, 16]
 
 #### or using lambda expression
-list( map(lambda  x : x**2, nums) ) # >>> [1, 4, 9, 16]
+list( map(lambda x : x**2, nums) ) # >>> [1, 4, 9, 16]
 ```
 
 ### function parameters type annotations
@@ -575,7 +584,7 @@ Person.great() # static method >>> hello!
 Student.great() # inherit from parent >>> hello!
 
 print(Student('alice', 33, 1234)) # >>> student: alice, 33 years old
-s = Student.createByBirthYear('bob', 21, 5678) # >>> student: bob, 2003 years old
+s = Student.createByBirthYear('bob', 1980, 5678) # >>> student: bob, 44 years old
 s.matricola # >>> 5678
 ```
 
@@ -657,22 +666,9 @@ if Color.RED == Color.GREEN
 for color in Color:
     print(color) 
 # >>> Color.RED 
-# >>> Color.RED 
-# >>> Color.RED
+# >>> Color.GREEN 
+# >>> Color.BLUE
 ```
-
-## Constants 
-
-to tell other programmers that a given value should be treated as a constant, you must use a widely accepted naming convention for the constant’s identifier or name. You should write the name in capital letters with underscores separating words.
-
-```python
-PI = 3.14
-MAX_SPEED = 300
-DEFAULT_COLOR = "\033[1;34m"
-WIDTH = 20
-```
-
-NB: it is just a convention, and it doesn’t prevent developers from assigning new values to your constant
 
 # Data Structures
 
@@ -685,8 +681,8 @@ dynamic non hashable arrays
 arr = [1, 2, 3] 
 [5, 'a', 3]
 [0] * 3 # >>> [0, 0, 0]
-list(range(5)) # >>> [0, 1, 2, 3, 4]
 [0 for _ in range(8)] # list comprehension >>> [0, 0, 0, 0, 0, 0, 0] 
+list(range(5)) # >>> [0, 1, 2, 3, 4]
 [i for i in range(5)] # >>> [0, 1, 2, 3, 4] 
 # 2d LISTS
 [[0] * 2 for _ in range(3)] # >>> [[0, 0], [0, 0], [0, 0]]
@@ -758,6 +754,7 @@ arr.pop()  # remove last appended
 arr[-1]  # peek: get the last element appended without removing it
 
 # check if stack is not empty
+len(arr) # number of elements inside the array
 if arr: # True if not empty, False if empty
 if not arr: # True if empty, False if not empty
 while arr: # while stack is not empty
@@ -800,7 +797,7 @@ if 1 in mySet: # check element, complexity O(1)
 mySet.remove(1) # remove element, complexity O(1)
 mySet.clear() # empty the set
 
-len(mtSet) # number of elements in the set
+len(mySet) # number of elements in the set
 if mySet: # checks if the set is non-empty
 
 # INITIALIZATION
@@ -823,7 +820,7 @@ myMap = {} # declare hashmap/dictionary
 myMap["alice"] = 88 # insert item
 if myMap: # checks if the map is non-empty
 if 'alice' in myMap: # check if a key is in the map
-myMap.get("alice") # get value of key 'alice'
+myMap.get("alice") # get value of key 'alice' >>> 88
 myMap['alice'] # get the value of key 'alice'
 myMap.pop("alice") # remove item that has key 'alice'
 myMap.clear() # empty the dictionary
@@ -834,7 +831,7 @@ myMap["tom"] = myMap.get("tom", 0) + 1 # safe increment
 
 list(myMap.keys()) # list of keys 
 list(myMap.values()) # list of values
-list(.items()) # list of tuples (key, value)
+list(myMap.items()) # list of tuples (key, value)
 len(myMap) # number of elements in the map
 
 # LOOPING
@@ -1046,21 +1043,21 @@ def reverse(head):
 
 A node with max 2 children. 
 
-- **depth**: tree root with no children has depth 1
-- **height**: tree root with no children has height 0
-- **balanced**: 
+**depth**: tree root with no children has depth 1
+**height**: tree root with no children has height 0
+**balanced**: 
 	- height of left subt and height of right subt do not differ more then 1
     - left subt is balanced and right subt is balanced
-- **complete**:
+**complete**:
 	- all levels but the last are completely filled
 	- in the last level nodes are as left as possible
 	**NB**: height is always logn, arrays representation does not have gaps between elements
-- **Heap**:
+***Heap***:
 	- it is a complete BT and 
 	- every parent has its value greater (or equal) then all its descendent
-- **Binary Search Tree**:
-	- the left subt contains only nodes with keys *less than* the node's key
-	- the right subt contains only nodes with keys *greater than* the node's key.
+***Binary Search Tree***:
+	- the left subt contains only nodes with keys  *less than*  the node's key
+	- the right subt contains only nodes with keys  *greater than* the node's key.
 	- both the left and right subt must also be BST
 
 ```python
@@ -1135,6 +1132,8 @@ def postOrder(root):
 
 ## Trie or Prefix tree
 
+A way to efficiently store and retrieve a set of strings. "*and*" and "*ant*" will share *root* -> *a* -> *n* 
+
 ```python
 class TrieNode:
 	def __init__(self):
@@ -1176,16 +1175,16 @@ class Trie:
 
 ## Graphs
 
-- **directed graph**: can be represented with an `adjacency map` *{node index : list of nodes indices}* where the key is a node index and the value is the  list of neighbors indices the node n points to
+- **directed graph**: can be represented with an `adjacency map` under the form of an hashmap ``{node index : [neighbor nodes indices]}`` where the key is a node index and the value is the list of neighbors indices that the node points to
 	- DAG: directed acyclic graph
 
 - **undirected graph**: can be represented with an array edges [a, b], or with an adjacency list, in case that the `number of unique edges == number of nodes` for sure we have a cycle!
 
 ```python
 class Node:
-    def __init__(self, val=0, neighbors=None):
-        self.val = val
-        self.neighbors = neighbors if neighbors is not None else []
+	def __init__(self, val=0, neighbors=None):
+		self.val = val
+		self.neighbors = neighbors if neighbors is not None else []
 
     def __str__(self):
 	    # create a map of existing nodes
@@ -1220,8 +1219,7 @@ class Node:
 - **Dijkstra**: $O(ElogV)$ used to find the shortest path from a vertex to all the others, it uses a `min-heap` (a.k.a. `priority queue`) because it looks at the minimum edge E and an `hashset` to look for cycles. **HOWTO**: we insert the starting node inside a minheap with weight = 0, then we pop it, we check in the hashset if node was already seen, if not we add it to the hashset and we process all its adjacent nodes (BFS). That means we push neighboars into the heap with updated weights (neighboar weight = parent weight + neighboar weight). The heap elements are tuples (weight, node), so they will be popped according to the weight.
 - **Minimum spanning tree** 
 	- **Prim's Kruskal**: $O(n^2logn)$ used to find the minimum spanning tree. At the beginning we have vertices without edges, we want to find the most efficient way to connect all vertices without forming cycles, i.e. V-1 edges. Basically we start at any single node and we apply BFS checking not to repeat nodes using an `hashset` and checking the frontier of nodes using a `minheap` in order to start adding nodes from the minimum possible cost ones first. We stop when the number of nodes in the hashset is equal to the total number of nodes. **HOWTO**: we start from a node n, add it to the hashset visit, add it to the minheap frontier with null weigth (0, n). We then pop it out from the frontier, add it to the hashset, increment a cost variable by the weight of the popped node, then we add all node's neighboars to the frontier (checking the given adjacency list). We then continue to 1. pop the minimum from the frontier, 2. if in hashset continue 3. add it to the hashset, 4. update the cost variable and 5. add neighboars back into the frontier, till the hashset size equals the total number of nodes.
-
-- **Floyd warshall's**: TODO!
+- **Floyd warshall's**: 
 
 
 # Math 
@@ -1231,7 +1229,13 @@ import math
 
 ITERATIONS = 1_000_000 # _ here is just to make the number more readable
 
-math.fmod(8, 7) # 1.0
+# ROUND & CAST DECIMAL NUMBERS
+round(n) # is a function to round a float, 
+int(n) # cast a float to an integer, get rid of the decimal part by truncating it
+int(-3.6) # -3
+round(-3.6) # -4 
+
+math.fmod(8, 7) # division remainder or modulo >>> 1.0
 math.floor(3 / 2) # 1
 math.ceil(3 / 2) # 2
 math.sqrt(9) # 3.0
@@ -1709,6 +1713,21 @@ pd.DataFrame([{'name':'mike', 'age':45}, {'name':'jack', 'age':29}], index=['1st
 # >>> 2nd  jack   29
 ```
 
+## info
+
+the describe() method will print a summary of the data:
+
+- **count** how many rows have non-missing values
+- **mean** the average
+- **std** the standard deviation spread out of the values
+- **min** and **max** are the minimum and maximum
+- **25%**, **50%**, **75%** are the percentiles
+
+```python
+df.describe()
+df.columns # print the list of the colum names
+```
+
 ## retrieving data
 
 ```python
@@ -1716,6 +1735,9 @@ pd.DataFrame([{'name':'mike', 'age':45}, {'name':'jack', 'age':29}], index=['1st
 df['name'] # this becomes a Series!
 # >>> 1st  mike
 # >>> 2nd  jack
+
+df.name
+
 
 ##### to get a dataframe row
 # single row 2nd
