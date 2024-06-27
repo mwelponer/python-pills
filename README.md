@@ -1,7 +1,6 @@
 Python pills
 ============
 Copyright (C) 2023 Michele Welponer
-
 - [Overview](#overview)
   * [print](#print)
   * [Syntax](#syntax)
@@ -72,6 +71,7 @@ Copyright (C) 2023 Michele Welponer
 - [Pandas](#pandas)
   * [Series](#series)
   * [dataframe](#dataframe)
+  * [info](#info)
   * [retrieving data](#retrieving-data)
   * [analyzing data](#analyzing-data)
     + [some statistic](#some-statistic)
@@ -86,9 +86,9 @@ Copyright (C) 2023 Michele Welponer
   * [writing a file](#writing-a-file)
 - [Try except raise](#try-except-raise)
 - [Concurrency vs Parallelism](#concurrency-vs-parallelism)
-	* [multi threading](#multi-threading)
-	* [multi processing](#multi-processing)
-	* [mup reduce](#map-reduce)
+  * [multi threading](#multi-threading)
+  * [multi processing](#multi-processing)
+  * [map reduce](#map-reduce)
 - [Other](#other)
   * [binary representation](#binary-representation)
     + [tricks](#tricks)
@@ -967,6 +967,8 @@ myMH[0] # peak min O(1)
 v = heapq.heappop(myMH)) # pop min O(logN)
 ```
 
+**NB**: if the elements in the heap are custom objects and I want to set the priority based on an object attribute (e.g. attribute age for a custom object User), then I can heappush a tuple (age, object) 
+
 ### maxheap
 
 ```python
@@ -1268,8 +1270,11 @@ float("-inf") # negative infinity
 ## min max
 
 ```python
-min([3, 5, 9, 1, -5]) # >>> -5
-max([3, 5, 9, 1, -5]) # >>> 9
+nums = [3, 5, 9, 1, -5]
+min(nums) # >>> -5
+max(nums) # >>> 9
+nums.index(min(nums)) # index of min num >>> 4
+nums.index(max(nums)) # index of max num >>> 2
 
 min("abcdefghijklmnopqrstuvwxyz") # >>> 'a'
 min("aA") # >>> 'A' because ord('A') = 65 and ord('a') = 97
