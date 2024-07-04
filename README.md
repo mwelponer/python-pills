@@ -140,10 +140,10 @@ print(name, end='.\n') # >>> Alice.
 ```python
 # WRITING ON MULTIPLE LINES
 print("one, " + "two, " \
-	+ "three, " + "four, " \
-	+ "five.")
+    + "three, " + "four, " \
+    + "five.")
 if ( n > 2 and
-	n < 10): print("ciao")
+    n < 10): print("ciao")
 
 # MULTIPLE ASSIGNMENTS
 n, m = 0, "abc" # n = 0 and m = "abc"
@@ -162,18 +162,19 @@ print(var, "has id:", id(var)) # >>> 5 has id: 4527716784
 
 ```python
 if n > 2:
-	print("more than 2")
+    print("more than 2")
 elif n == 2:
-	print("2")
-else: print("less then 2")
+    print("2")
+else: 
+    print("less then 2")
 ```
 
 ### loops
 
 ```python
 while n > 0: 
-	print(n)
-	n -= 1
+    print(n)
+    n -= 1
 
 for i in range(0, 5): # >>> 0, 1, 2, 3, 4
 for i in range(5) # >>> 0, 1, 2, 3, 4
@@ -225,13 +226,13 @@ import re
 
 ```python
 def myFunc(n, m):
-	return n * m
-	
+    return n * m
+    
 myFunc(3, 4) # >>> 12
 
 #### function stub
 def myfunction():  
-	pass # placeholder for future code
+    pass # placeholder for future code
 ```
 
 ### pass by object reference
@@ -258,13 +259,13 @@ print(v, t, l) # >>> 0 (0, 1, 2) [666, 1, 2]
 
 ```python
 def outer(a, b):
-	c = "c"
+    c = "c"
 
-	def inner():
-		# this inner function has access to
-		# all of the declared variables
-		return a + b + c
-	return inner()
+    def inner():
+        # this inner function has access to
+        # all of the declared variables
+        return a + b + c
+    return inner()
 
 outer("a", "b") # >>> 'abc'
 ```
@@ -298,8 +299,8 @@ import time
 import math
 
 def calculate_time(func):
-	# if function takes any arguments, can be added like this
-	def inner1(*args, **kwargs):
+    # if function takes any arguments, can be added like this
+    def inner1(*args, **kwargs):
         begin = time.time()
         func(*args, **kwargs) # pass arguments to the function
         end = time.time()
@@ -340,8 +341,8 @@ generators return an **iterable object**.
 
 ```python
 def PowTwoGen(max=0):
-	for i in range(max):
-		yield 2**i
+    for i in range(max):
+        yield 2**i
         
 for n in PowTwoGen(6): print(n) # >>> 1 2 4 8 16 32
 
@@ -354,10 +355,10 @@ so the power of generator is that I can start getting results without the need t
 ```python
 count =  0
 for i in powOf2(1000,000):
-	if count ==  10:
-		break
-	print(i)
-	count +=  1
+    if count ==  10:
+        break
+    print(i)
+    count +=  1
 ```
 
 Example using generator and decorator together
@@ -377,8 +378,8 @@ def timeCount(func):
 
 # generator, yields k powers of 2 
 def pows2Gen(max=0):
-	for i in range(max):
-		yield 2**i
+    for i in range(max):
+        yield 2**i
 
 # define main function with timeCount decorator to get elapsed time
 @timeCount
@@ -421,7 +422,7 @@ Example:
 
 ```python
 def square(n): # the function
-	return n*n
+    return n*n
 nums = [1, 2, 3, 4] # the iterable
 
 list( map(square, nums) ) # >>> [1, 4, 9, 16]
@@ -438,17 +439,19 @@ from typing import List # also Tuple, Dict, Set, etc.
 
 def process(items: List[int]) -> None:
     for item in items: 
-	    print(item)
+        print(item)
 
 def add(x : float, y : float) -> float:
-	return x + y
+    return x + y
 
 # specify that a parameter can be optionally None 
 from typing import Optional  
 
 def greet(name: Optional[str]) -> str: 
-	if name is not None: return f"Hello, {name}!"  
-	else: return  "Hello, there!"
+    if name is not None: 
+        return f"Hello, {name}!"  
+    else: 
+        return  "Hello, there!"
 ```
 
 ### timeit
@@ -483,11 +486,11 @@ from datetime import date
 
 class Entity:
     # Constructor
-	def __init__(self, name, age): # self can be whatever other word but first parameter!
+    def __init__(self, name, age): # self can be whatever other word but first parameter!
         self.name = name # public members
         self.age = age # public members
-		self._cname = 'Entity' # protected member thanks to _
-		self.__other = 0 # private member thanks to __
+        self._cname = 'Entity' # protected member thanks to _
+        self.__other = 0 # private member thanks to __
 
     # toString magic method
     def __str__(self):
@@ -500,7 +503,7 @@ class Entity:
     # equality magic method
     def __eq__(self, other): 
         if isinstance(other, Entity) and hash(other) == hash(self):
-			return True
+            return True
         return False
 
     # private method, prefix the member name with __
@@ -598,24 +601,24 @@ Example of **iterables** are *lists, tuples, set, dictionaries*, i.e. containers
 
 ```python
 class myIterator:
-	def __init__(self, data): # initialize the iterator
-		self.data = data
-		self.index = 0
-		
-	def __iter__(self): # __iter__ usually returns the object itself
-		return self
+    def __init__(self, data): # initialize the iterator
+        self.data = data
+        self.index = 0
+        
+    def __iter__(self): # __iter__ usually returns the object itself
+        return self
 
-	def __next__(self): # __next__ defines how to navigate through the data
-		if self.index < len(self.data):
-			item = self.data[index]
-			self.index += 1
-			return item
-		else:
-			raise StopIteration # special exception to rise when we reach end of sequence
+    def __next__(self): # __next__ defines how to navigate through the data
+        if self.index < len(self.data):
+            item = self.data[index]
+            self.index += 1
+            return item
+        else:
+            raise StopIteration # special exception to rise when we reach end of sequence
 
 it = myIterator([5, 6, 7, 8])
 while val = it.next():
-	print(val)		
+    print(val)        
 ```
 
 
@@ -627,19 +630,19 @@ while val = it.next():
 from abc import ABC, abstractmethod
 
 class Polygon(ABC):
-	@abstractmethod
-	def noofsides(self):
-		pass	
+    @abstractmethod
+    def noofsides(self):
+        pass
 
 class Triangle(Polygon):
-	# overriding abstract method
-	def noofsides(self):
-		print("I have 3 sides")
+    # overriding abstract method
+    def noofsides(self):
+        print("I have 3 sides")
 
 class Pentagon(Polygon):
-	# overriding abstract method
-	def noofsides(self):
-		print("I have 5 sides")
+    # overriding abstract method
+    def noofsides(self):
+        print("I have 5 sides")
 ```
 
 ## Enumerations
@@ -706,12 +709,12 @@ if any(arr): print("Yess!") # checks if any element in arr is True
 
 # LOOPING 
 for i in range(len(arr)): 
-	print(arr[i]) # >>> from first to last
-	print(arr[~i]) # >>> from last to first (if i = 0 then ~i = -1)
+    print(arr[i]) # >>> from first to last
+    print(arr[~i]) # >>> from last to first (if i = 0 then ~i = -1)
 for n in arr: 
-	print(n)
+    print(n)
 for i, n in enumerate(arr): 
-	print(i, ":", n)
+    print(i, ":", n)
 
 # LIST COMPREHENSION
 [i for i in range(5)] # >>> [0, 1, 2, 3, 4]
@@ -742,7 +745,7 @@ arr = list(reversed(arr)) # reverse arr
 # UNPACKING
 a, b, c =  [1,  2,  3] # un-packing
 for v1, v2 in zip(arr1, arr2): # un-packing multiple arrays
-	print(v1, v2) 
+    print(v1, v2) 
 ```
 
 ## Stack
@@ -1048,28 +1051,28 @@ A node with max 2 children.
 **depth**: tree root with no children has depth 1
 **height**: tree root with no children has height 0
 **balanced**: 
-	- height of left subt and height of right subt do not differ more then 1
+    - height of left subt and height of right subt do not differ more then 1
     - left subt is balanced and right subt is balanced
 **complete**:
-	- all levels but the last are completely filled
-	- in the last level nodes are as left as possible
-	**NB**: height is always logn, arrays representation does not have gaps between elements
+    - all levels but the last are completely filled
+    - in the last level nodes are as left as possible
+    **NB**: height is always logn, arrays representation does not have gaps between elements
 ***Heap***:
-	- it is a complete BT and 
-	- every parent has its value greater (or equal) then all its descendent
+    - it is a complete BT and 
+    - every parent has its value greater (or equal) then all its descendent
 ***Binary Search Tree***:
-	- the left subt contains only nodes with keys  *less than*  the node's key
-	- the right subt contains only nodes with keys  *greater than* the node's key.
-	- both the left and right subt must also be BST
+    - the left subt contains only nodes with keys  *less than*  the node's key
+    - the right subt contains only nodes with keys  *greater than* the node's key.
+    - both the left and right subt must also be BST
 
 ```python
 from collections import deque
 
 class btNode:
-	def __init__(self, val=0, left=None, right=None):
-		self.val = val
-		self.left = left
-		self.right = right
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
     def __str__(self):
         queue = deque()
@@ -1090,12 +1093,12 @@ visiting in BFS / levelorder
 ```python
 qu = deque(root)
 while qu:
-	for i in range(len(qu)):
-		n = qu.popleft()
-		if n.left: qu.append(n.left)
-		if n.right: qu.append(n.right)
+    for i in range(len(qu)):
+        n = qu.popleft()
+        if n.left: qu.append(n.left)
+        if n.right: qu.append(n.right)
 
-	level += 1
+    level += 1
 ```
 
 ### Depth first search DSF 
@@ -1104,9 +1107,9 @@ visiting in DFS using a **stack** gives **pre-order**
 ```python
 st = [root]
 while st:
-	n = st.pop()
-	if n.left: st.append(n.left)
-	if n.right: st.append(n.right)
+    n = st.pop()
+    if n.left: st.append(n.left)
+    if n.right: st.append(n.right)
 ```
 
 ### recursive DFS
@@ -1114,22 +1117,22 @@ visiting in DFS using recursion can give **(pre/in/post)-order**
 
 ```python
 def preOrder(root):
-	if not root: return 
-	print(root.val)
-	preOrder(root.left)
-	preOrder(root.right)
-	
+    if not root: return 
+    print(root.val)
+    preOrder(root.left)
+    preOrder(root.right)
+    
 def inOrder(root):
-	if not root: return 
-	inOrder(root.left)
-	print(root.val)
-	inOrder(root.right)
-	
+    if not root: return 
+    inOrder(root.left)
+    print(root.val)
+    inOrder(root.right)
+    
 def postOrder(root):
-	if not root: return 
-	postOrder(root.left)
-	postOrder(root.right)
-	print(root.val)	
+    if not root: return 
+    postOrder(root.left)
+    postOrder(root.right)
+    print(root.val)    
 ```
 
 ## Trie or Prefix tree
@@ -1138,58 +1141,58 @@ A way to efficiently store and retrieve a set of strings. "*and*" and "*ant*" wi
 
 ```python
 class TrieNode:
-	def __init__(self):
-		self.children = {} # 26 letters hashmap
-		self.endOfWord = False
+    def __init__(self):
+        self.children = {} # 26 letters hashmap
+        self.endOfWord = False
 
 class Trie:
-	def __init__(self):
-		self.root = TrieNode() # empty root node
-		
-	def insert(self, word: str) -> None:
-		current = self.root 
-		for c in word:
-			# hm doesn't have already that letter
-			if c not in current.children:
-				current.children[c] = TrieNode()
-			current = current.children[c]
-		current.endOfWord = True
-			
-	def search(self, word: str) -> bool:
-		current = self.root 
-		for c in word:
-			if c not in current.children:
-				return False
-			current = current.children[c]
-		
-		return current.endOfWord
-	
-	def startsWith(self, prefix: str) -> bool:
-		current = self.root 
-		for c in prefix:
-			if c not in current.children:
-				return False
-			current = current.children[c]
-		
-		return True
+    def __init__(self):
+        self.root = TrieNode() # empty root node
+        
+    def insert(self, word: str) -> None:
+        current = self.root 
+        for c in word:
+            # hm doesn't have already that letter
+            if c not in current.children:
+                current.children[c] = TrieNode()
+            current = current.children[c]
+        current.endOfWord = True
+            
+    def search(self, word: str) -> bool:
+        current = self.root 
+        for c in word:
+            if c not in current.children:
+                return False
+            current = current.children[c]
+        
+        return current.endOfWord
+    
+    def startsWith(self, prefix: str) -> bool:
+        current = self.root 
+        for c in prefix:
+            if c not in current.children:
+                return False
+            current = current.children[c]
+        
+        return True
 ```
 
 
 ## Graphs
 
 - **directed graph**: can be represented with an `adjacency map` under the form of an hashmap ``{node index : [neighbor nodes indices]}`` where the key is a node index and the value is the list of neighbors indices that the node points to
-	- DAG: directed acyclic graph
+    - DAG: directed acyclic graph
 
 - **undirected graph**: can be represented with an array edges [a, b], or with an adjacency list, in case that the `number of unique edges == number of nodes` for sure we have a cycle!
 
 ```python
 class Node:
-	def __init__(self, val=0, neighbors=None):
-		self.val = val
-		self.neighbors = neighbors if neighbors is not None else []
+    def __init__(self, val=0, neighbors=None):
+        self.val = val
+        self.neighbors = neighbors if neighbors is not None else []
 
     def __str__(self):
-	    # create a map of existing nodes
+        # create a map of existing nodes
         visited = {} 
         def dfs(node):
             if node.val in visited: 
@@ -1216,11 +1219,11 @@ class Node:
 - **DFS**: $O(n)$ it traverse the graph using recursion and it uses an `hashset` to detect cycles. It can be traversed non recursively using a `stack`
 - **BFS**: $O(n)$ it traverse the graph using a `queue` and it uses an `hashset` to detect cycles. The traversal is done layer by layer 
 - **Number of Connected component in UG** (undirected graph): $O(E+V)$ if it is expressed as an array of edges, E to read all the edged to transform it into an adjacency list. Then we apply DFS on every vertex checking if the vertex has already been visited (same connected component)
-	- **Union-Find**: $O(nlogn)$ used to calculate the number of connected components or to union together disjonit sets of nodes (connected components) and combine them together efficiently, it requires a `forest of trees`.  **HOWTO**: we maintain a `parent array` initially with the index of the nodes (each node initially is parent of itself), and a `rank array` representing for each node the size of the connected component, initially each node is set to 1 (each node initially has rank 1). Then we start reading the edges array given as input and we start to connect the nodes (higher rank nodes become parents of lower rank ones). **NB**: When connecting two nodes, we first need to find the ancestors of both nodes, then we connect the anchestors together. Connecting nodes means update the values of the parent array and relative rank one. During this process, each time we make a union we decrement the number of vertices. The result is the number of connected components!
+    - **Union-Find**: $O(nlogn)$ used to calculate the number of connected components or to union together disjonit sets of nodes (connected components) and combine them together efficiently, it requires a `forest of trees`.  **HOWTO**: we maintain a `parent array` initially with the index of the nodes (each node initially is parent of itself), and a `rank array` representing for each node the size of the connected component, initially each node is set to 1 (each node initially has rank 1). Then we start reading the edges array given as input and we start to connect the nodes (higher rank nodes become parents of lower rank ones). **NB**: When connecting two nodes, we first need to find the ancestors of both nodes, then we connect the anchestors together. Connecting nodes means update the values of the parent array and relative rank one. During this process, each time we make a union we decrement the number of vertices. The result is the number of connected components!
 - **Topological sort**: $O(E+V)$ used in DAG (directed acyclic graph) to read the nodes in a correct sequence, it uses an `hashset` to detect cycles as it uses DFS, optionally a `stack` if DFS is not written recursively and possibly another hashset to determine the already processed nodes. **HOWTO**: turn the edges array into an adjacency list, then run DFS to each node, avoiding repeated nodes saved into the hashset and break as soon as a cycle is detected (through the uso of another hashset). If we have a cycle then there is no possible solution
 - **Dijkstra**: $O(ElogV)$ used to find the shortest path from a vertex to all the others, it uses a `min-heap` (a.k.a. `priority queue`) because it looks at the minimum edge E and an `hashset` to look for cycles. **HOWTO**: we insert the starting node inside a minheap with weight = 0, then we pop it, we check in the hashset if node was already seen, if not we add it to the hashset and we process all its adjacent nodes (BFS). That means we push neighboars into the heap with updated weights (neighboar weight = parent weight + neighboar weight). The heap elements are tuples (weight, node), so they will be popped according to the weight.
 - **Minimum spanning tree** 
-	- **Prim's Kruskal**: $O(n^2logn)$ used to find the minimum spanning tree. At the beginning we have vertices without edges, we want to find the most efficient way to connect all vertices without forming cycles, i.e. V-1 edges. Basically we start at any single node and we apply BFS checking not to repeat nodes using an `hashset` and checking the frontier of nodes using a `minheap` in order to start adding nodes from the minimum possible cost ones first. We stop when the number of nodes in the hashset is equal to the total number of nodes. **HOWTO**: we start from a node n, add it to the hashset visit, add it to the minheap frontier with null weigth (0, n). We then pop it out from the frontier, add it to the hashset, increment a cost variable by the weight of the popped node, then we add all node's neighboars to the frontier (checking the given adjacency list). We then continue to 1. pop the minimum from the frontier, 2. if in hashset continue 3. add it to the hashset, 4. update the cost variable and 5. add neighboars back into the frontier, till the hashset size equals the total number of nodes.
+    - **Prim's Kruskal**: $O(n^2logn)$ used to find the minimum spanning tree. At the beginning we have vertices without edges, we want to find the most efficient way to connect all vertices without forming cycles, i.e. V-1 edges. Basically we start at any single node and we apply BFS checking not to repeat nodes using an `hashset` and checking the frontier of nodes using a `minheap` in order to start adding nodes from the minimum possible cost ones first. We stop when the number of nodes in the hashset is equal to the total number of nodes. **HOWTO**: we start from a node n, add it to the hashset visit, add it to the minheap frontier with null weigth (0, n). We then pop it out from the frontier, add it to the hashset, increment a cost variable by the weight of the popped node, then we add all node's neighboars to the frontier (checking the given adjacency list). We then continue to 1. pop the minimum from the frontier, 2. if in hashset continue 3. add it to the hashset, 4. update the cost variable and 5. add neighboars back into the frontier, till the hashset size equals the total number of nodes.
 - **Floyd warshall's**: 
 
 
@@ -1303,9 +1306,9 @@ min(point_pairs, key=lambda points: math.dist(*points))
 
 ```python
 def factorial(n): 
-	if n == 0 
-		return 1
-	return n * factorial(n - 1)
+    if n == 0 
+        return 1
+    return n * factorial(n - 1)
 ```
 
 using **memoization** (an optimization technique used to speed up programs by storing/caching the results of expensive function calls into arrays/sets/maps and retrieve the result when the same inputs occurs again)
@@ -1347,15 +1350,15 @@ the greatest common divisor of two numbers does not change if the larger number 
 
 ```python
 def gcd(a, b):
-	if b == 0: return a  
-	return gcd(b, a % b)
+    if b == 0: return a  
+    return gcd(b, a % b)
 ```
 
 ### least common multiple LCM
 
 ```python
 def lcm(x, y): 
-	return abs(x * y)
+    return abs(x * y)
 ```
 
 ### fibonacci 
@@ -1371,11 +1374,11 @@ def fibonacci(n):
     return fib_series[:n]
 
 def fibonacci_recursive(n, series=[0, 1]): 
-	if n <= len(series): 
-		return series[:n] 
-	else: 
-		next_term = series[-1] + series[-2] 
-		return fibonacci_recursive(n, series + [next_term])
+    if n <= len(series): 
+        return series[:n] 
+    else: 
+        next_term = series[-1] + series[-2] 
+        return fibonacci_recursive(n, series + [next_term])
 ```
 
 ### Newton square root of a number
@@ -1430,8 +1433,8 @@ np.arange(0, 10, 2, int) # start, end, increment, type >>> [0, 2, 4, 6, 8]
 # initialization using datatype
 datatype = [('name', 'U7'), ('age', int), ('height', int)]
 people = [('Alice', 25, 170), 
-		  ('Bob', 35, 180), 
-		  ('Charlie', 35, 175)]
+          ('Bob', 35, 180), 
+          ('Charlie', 35, 175)]
 array = np.array(people, dtype = datatype) 
 
 ##### dimension
@@ -1449,13 +1452,13 @@ arr[1][2] # >>> 6
 ##### iterating
 arr = np.array([1, 2, 3])
 for x in arr: 
-	print(x)
+    print(x)
 for i, x in np.ndenumerate(arr):
-	print(i, x)
-	
+    print(i, x)
+    
 arr = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])  
 for x in np.nditer(arr):  # iterate on every scalar, regardless of the dimensionality
-	print(x)
+    print(x)
 
 ##### type
 arr = np.array((0, 1, 2, 3))
@@ -1551,8 +1554,8 @@ np.sort(array, axis=1) # sort column wise, same as axis=-1
 #### sorting with order
 datatype = [('name', 'U7'), ('age', int), ('height', int)]
 people = [('Alice', 25, 170), 
-		  ('Bob', 35, 180), 
-		  ('Charlie', 35, 175)]
+          ('Bob', 35, 180), 
+          ('Charlie', 35, 175)]
 array = np.array(people, dtype = datatype) 
 
 np.sort(array, order='height') # sorting based on height
@@ -1577,12 +1580,12 @@ a.transpose() # Returns an array with axes transposed >>> [[1, 3], [2, 4]]
 
 - **scalar**: if vector has 1 row and 1 column 
 - **zero matrix**: all elements are 0
-- **identity matrix** $I$: a square matrix with all 1 on the diagonal, all the rest 0. $M*I = M = M*I$ 
-- **diagonal matrix**: elements only on the diagonal, all rest is 0
+- **identity matrix** $I$: a square matrix with all 1 on the main diagonal, all the rest 0. $M*I = M = M*I$ 
+- **diagonal matrix**: elements only on the main diagonal, all rest is 0
 - **inverse matrix** $A^{-1}$  properties:
-	- $A*A^{-1} = I$
-	- $(AB)^{-1} = A^{-1}B^{-1}$
-	- $(A^T)^{-1} = (A^{-1})^T$
+    - $A*A^{-1} = I$
+    - $(AB)^{-1} = A^{-1}B^{-1}$
+    - $(A^T)^{-1} = (A^{-1})^T$
 
 ## sum 
 
@@ -1631,7 +1634,7 @@ Python example of **dot product** and **matmul**
 k = 3 # scalar 
 a = np.array([[1, 2]]) # 1 by 2 matrix
 b = np.array([[5, 6], # 2 by 2 matrix
-			  [7, 8]])
+              [7, 8]])
 
 np.dot(k, a) # scalar product >>> [[3 6]]
 np.dot(a, k) # scalar product >>> [[3 6]]
@@ -1697,10 +1700,10 @@ pd.read_json('data.json') # json are like python dictionaries
 
 ##### using list of list, i.e. list of rows
 pd.DataFrame([[21, 54], [76, 43], [98, 93]], columns=['fild1', 'field2'])
-# >>>  filed1 field2 
-# >>> 0    21    54
-# >>> 1    76    43
-# >>> 3    98    93
+# >>>    filed1 field2 
+# >>> 0      21    54
+# >>> 1      76    43
+# >>> 3      98    93
 
 ##### using dictionary, i.e. key is the column label, value is the list of column values
 pd.DataFrame({'x':[9], 'y':[8], 'z':[1]}) # automatic indices 
@@ -1757,7 +1760,7 @@ df.iloc[0:3] # rows with inex in range(0, 3)
 
 ##### cycle over all rows
 for r in df.index:
-	print(df.loc[r])
+    print(df.loc[r])
 
 ##### filter data
 df.nlargest(5, 'age') # retrieve 5 largest in col 'age'
@@ -1850,13 +1853,13 @@ pd.to_datetime(df['Date']) # convert all non-datetime cells in column Date to da
 
 # write 0 in all rows where 'z' > 0
 for r in df.index:  
-	if df.loc[r, 'z'] > 0:  
-		df.loc[r, 'z'] = 0
+    if df.loc[r, 'z'] > 0:  
+        df.loc[r, 'z'] = 0
 
 # drop all rows where 'z' > 0
 for r in df.index:  
-	if df.loc[r, 'z'] > 0:  
-		df.drop(r, inplace = True)
+    if df.loc[r, 'z'] > 0:  
+        df.drop(r, inplace = True)
 ```
 
 show and remove **duplicates**
@@ -1992,15 +1995,15 @@ with open('output.txt', 'w') as file:
 
 ```python
 try:  
-	print(f) # x is not defined >>> NameError: name 'f' is not defined
+    print(f) # x is not defined >>> NameError: name 'f' is not defined
 except NameError:  # we handle the specific NameError exception
-	print("Variable x is not defined")  
+    print("Variable x is not defined")  
 except:  # we can add as many except as we need
-	print("Something else went wrong")
+    print("Something else went wrong")
 else:
-	print('something else') # executed if no errors were raised
+    print('something else') # executed if no errors were raised
 finally:
-	print('do something at the end') # executed regardless if an error is rised or not
+    print('do something at the end') # executed regardless if an error is rised or not, e.g. close a file
 ```
 
 **raise**: you can choose to throw an exception if a condition occurs
@@ -2009,7 +2012,7 @@ finally:
 x = "hello"
 
 if not isinstance(x, int):
-	raise TypeError("Only integers are allowed!")
+    raise TypeError("Only integers are allowed!")
 ```
 
 # Concurrency vs Parallelism
@@ -2029,7 +2032,7 @@ def print_numbers():
 if __name__ == "__main__":
     thread = threading.Thread(target=print_numbers)
     thread.start()
-	thread.join(); # tells main thread to wait the end of thread before proceeding
+    thread.join(); # tells main thread to wait the end of thread before proceeding
 ```
 
 ## multi processing
@@ -2098,13 +2101,13 @@ A | B |*and*| *or* | *xor* | nand
 
 ### tricks
 - if n is a power of 2, its binary representation contains only a 1
-	- 2 -> 10
-	- 4 -> 100
-	- 8 -> 1000
-- every time we do ``n & (n - 1)`` we basically remove the first 1 we encounter - starting from the less significant bit (right most) - from the n binary representation.
+    - 2 -> 10
+    - 4 -> 100
+    - 8 -> 1000
+- every time we do ``n & (n - 1)`` we basically remove the first 1 we encounter - starting from the less significant bit (right most) - from the `n` binary representation.
 - in particular, if n is a power of 2, the binary representation has only a 1 and so  ``n & (n - 1) = 0``
 - XOR of 2 equal numbers will produce 0
-- ``n >> i`` (shift right) by $i$ times means cut $i$ bits from the end (right-most), so it means to divide by two i times
+- ``n >> i`` (shift right) by `i` times means cut `i` bits from the end (right-most), so it means to divide by 2 `i` times
 - ``n & 1`` gives us the least significant bit (right most) as well as ``n % 2``
 
 ```python
@@ -2120,20 +2123,20 @@ print(bin(b)) # prints the binary value >>> 0b1000
 ## binary search
 
 ```python
-A = [-1, 0, 3, 5, 9, 12]
+A = [-1, 0, 3, 5, 9, 12] # sorterd array
 target = 9
 
 def bsearch(A, target):
-	l,r = 0, len(A)-1
-	while l <= r:
-		mid = l + (r-l)//2
-		if A[mid] == target:
-			return mid
-		if A[mid] < target:
-			l = mid + 1
-		else:
-			r = mid - 1
-	return -1
+    l,r = 0, len(A)-1
+    while l <= r:
+        mid = l + (r-l)//2
+        if A[mid] == target:
+            return mid
+        if A[mid] < target:
+            l = mid + 1
+        else:
+            r = mid - 1
+    return -1
 ```
 
 or simply using the **bisect** library
