@@ -2105,7 +2105,7 @@ A | B |*and*| *or* | *xor* | nand
     - 4 -> 100
     - 8 -> 1000
 - every time we do ``n & (n - 1)`` we basically remove the first 1 we encounter - starting from the less significant bit (right most) - from the `n` binary representation.
-- in particular, if n is a power of 2, the binary representation has only a 1 and so  ``n & (n - 1) = 0``
+- in particular, if `n` is a power of 2, the binary representation has only a single 1 and so  ``n & (n - 1) = 0``
 - XOR of 2 equal numbers will produce 0
 - ``n >> i`` (shift right) by `i` times means cut `i` bits from the end (right-most), so it means to divide by 2 `i` times
 - ``n & 1`` gives us the least significant bit (right most) as well as ``n % 2``
