@@ -124,6 +124,9 @@ class TreeNode:
         return s[:-2] + "]"
 
 
+"""
+implementation of a graph using adjacency list
+"""
 class DirectedGraph:
     class Node:
         def __init__(self, val=0, neighbors=None):
@@ -175,20 +178,131 @@ class DirectedGraph:
             s = s[:-2] + "], "
         return s[:-2] + "]"
 
-# DirectedGraph Example usage
-graph = DirectedGraph()
-graph.add_node(1)
-graph.add_node(2)
-graph.add_edge(1, 2)
-graph.add_edge(1, 3)
-graph.add_edge(2, 3)
-graph.add_edge(3, 4)
 
-print("Graph:")
-print(graph)
+"""
+implementation of a `Least recently used` cache
+"""
+class LRUCache:
+    class Node:
+        def __init__(self, key, val):
+            self.key, self.val = key, val
+            self.prev, self.next = None, None
+
+    # an empty cache look like `head -> tail`,
+    #where tail is the last added
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.head, self.tail = self.Node(-1, 0), self.Node(-1, 0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        self.map = {}
+
+    def __str__(self):
+        s = 'head -> '
+        n = self.head.next 
+        while n:
+            if n.key != -1:
+                s += f'{n.key} -> '
+            else:
+                s += 'tail'
+            n = n.next
+        return s
+    
+    # adds a node just before the tail, making it 
+    # the most recently used item.
+    def add(self, node):
+        print(f'  add node {node.key}')
+        prev = self.tail.prev
+        prev.next = node
+        node.prev = prev
+        node.next = self.tail
+        self.tail.prev = node
+
+    # remove a specific node inside the linkedlist
+    def remove(self, node):
+        print(f'  remove {node.key}');
+        pr = node.prev
+        nx = node.next
+        pr.next = nx
+        nx.prev = pr
+
+    # moves an existing node to just before the tail, 
+    # marking it as the most recently used.
+    def moveToTail(self, node):
+        print(f'  move {node.key} to tail');
+        self.remove(node)
+        self.add(node)
+  
+    # retrieves the value associated with a key if it exists
+    def get(self, key):
+        print(f'\ngetting node {key} [')
+        # get if present
+        value = -1
+
+        if key in self.map:
+            # retrieve node
+            toGet = self.map[key]
+            value = toGet.val
+            # move to tail (most recently inserted), to become most recently used
+            self.moveToTail(toGet)
+        
+        print(f'  returns value {value}')
+        print(f'] : {self}')
+        return value
+  
+    # add to the cache
+    # adds a new key-value pair to the cache. If the cache is full, 
+    # it removes the least recently used item (the node right after head)
+    def put(self, key, value):
+        print(f'\nputting {key}:{value} [')
+        # if key exists update node and move it to tail as most recently used
+        if key in self.map:
+            print(f'  updating node {key}')
+            node = self.map[key]
+            node.value = value
+            self.moveToTail(node)
+        else:
+            toBeAdded = self.Node(key, value)
+
+            if len(self.map) == self.capacity:
+                print('  cache is full')
+                # remove least recently used (head)
+                toBeRemoved = self.head.next
+                self.remove(toBeRemoved)
+                self.map.pop(toBeRemoved.key)
+
+            self.add(toBeAdded)
+            self.map[key] = toBeAdded
+        print(f'] : {self}')
 
 
-# # Example usage Graph Node
+# # Least recently used cache Example
+cache = LRUCache(2)
+cache.put(1, 1)
+cache.put(2, 2)
+cache.get(1)        # returns 1
+cache.put(3, 3)     # evicts key 2
+cache.get(2)        # returns -1 (not found)
+cache.put(4, 4)     # evicts key 1
+cache.get(1)        # returns -1 (not found)
+cache.get(3)        # returns 3
+cache.get(4)        # returns 4
+
+
+# # DirectedGraph Example
+# graph = DirectedGraph()
+# graph.add_node(1)
+# graph.add_node(2)
+# graph.add_edge(1, 2)
+# graph.add_edge(1, 3)
+# graph.add_edge(2, 3)
+# graph.add_edge(3, 4)
+
+# print("Graph:")
+# print(graph)
+
+
+# # Graph Node Example
 # node1 = Node(1)
 # node2 = Node(2)
 # node3 = Node(3)
@@ -198,6 +312,6 @@ print(graph)
 # node3.neighbors = [node1]
 # print(node1)
 
-# # or simply 
+# # buildGraph function Example
 # node = buildGraph([[2, 3], [1], [1]])
 # print(node)

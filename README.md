@@ -46,6 +46,7 @@ Copyright (C) 2023 Michele Welponer
     + [Depth first search DSF](#depth-first-search-dsf)
     + [recursive DFS](#recursive-dfs)
   * [Trie or Prefix tree](#trie-or-prefix-tree)
+  * [LRU cache](#lru-cache)
   * [Graphs](#graphs)
     + [graph algoritms](#graph-algoritms)
 - [Math](#math)
@@ -1122,19 +1123,19 @@ def reverse(head):
 
 A node with max 2 children. 
 
-**depth**: tree root with no children has depth 1
-**height**: tree root with no children has height 0
-**balanced**: 
+- **depth**: tree root with no children has depth 1
+- **height**: tree root with no children has height 0
+- **balanced**: 
     - height of left subt and height of right subt do not differ more then 1
     - left subt is balanced and right subt is balanced
-**complete**:
+- **complete**:
     - all levels but the last are completely filled
     - in the last level nodes are as left as possible
     **NB**: height is always logn, arrays representation does not have gaps between elements
-***Heap***:
+- ***Heap***:
     - it is a complete BT and 
     - every parent has its value greater (or equal) then all its descendent
-***Binary Search Tree***:
+- ***Binary Search Tree***:
     - the left subt contains only nodes with keys  *less than*  the node's key
     - the right subt contains only nodes with keys  *greater than* the node's key.
     - both the left and right subt must also be BST
@@ -1251,6 +1252,114 @@ class Trie:
         return True
 ```
 
+## LRU cache
+
+Least Recently Used (LRU) cache of a specific capacity will evict least recently used data when its capacity is reached. It uses a custom doubly linked list and an hashmap.
+
+```python
+class LRUCache:
+    class Node:
+        def __init__(self, key, val):
+            self.key, self.val = key, val
+            self.prev, self.next = None, None
+
+    # an empty cache looks like `head -> tail`, where tail is the last added
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.head, self.tail = self.Node(-1, 0), self.Node(-1, 0)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        self.map = {}
+
+    def __str__(self):
+        s = 'head -> '
+        n = self.head.next 
+        while n:
+            if n.key != -1:
+                s += f'{n.key} -> '
+            else:
+                s += 'tail'
+            n = n.next
+        return s
+    
+    # adds a node just before the tail, 
+    # making it as the most recently used item.
+    def add(self, node):
+        print(f'  add node {node.key}')
+        prev = self.tail.prev
+        prev.next = node
+        node.prev = prev
+        node.next = self.tail
+        self.tail.prev = node
+
+    # remove a specific node inside the linkedlist
+    def remove(self, node):
+        print(f'  remove {node.key}');
+        pr = node.prev
+        nx = node.next
+        pr.next = nx
+        nx.prev = pr
+
+    # moves an existing node to just before the tail, 
+    # marking it as the most recently used.
+    def moveToTail(self, node):
+        print(f'  move {node.key} to tail');
+        self.remove(node)
+        self.add(node)
+  
+    # retrieves the value associated with a key if it exists
+    def get(self, key):
+        print(f'\ngetting node {key} [')
+        # get if present
+        value = -1
+
+        if key in self.map:
+            # retrieve node
+            toGet = self.map[key]
+            value = toGet.val
+            # move to tail (most recently inserted), to become most recently used
+            self.moveToTail(toGet)
+        
+        print(f'  returns value {value}')
+        print(f'] : {self}')
+        return value
+  
+    # add to the cache
+    # adds a new key-value pair to the cache. If the cache is full, 
+    # it removes the least recently used item (the node right after head)
+    def put(self, key, value):
+        print(f'\nputting {key}:{value} [')
+        # if key exists update node and move it just before the tail
+        if key in self.map:
+            print(f'  updating node {key}')
+            node = self.map[key]
+            node.value = value
+            self.moveToTail(node)
+        else:
+            toBeAdded = self.Node(key, value)
+
+            if len(self.map) == self.capacity:
+                print('  cache is full')
+                # remove least recently used (node just after the head)
+                toBeRemoved = self.head.next
+                self.remove(toBeRemoved)
+                self.map.pop(toBeRemoved.key)
+
+            self.add(toBeAdded)
+            self.map[key] = toBeAdded
+        print(f'] : {self}')
+
+cache = LRUCache(2)
+cache.put(1, 1)
+cache.put(2, 2)
+cache.get(1)        # returns 1
+cache.put(3, 3)     # evicts key 2
+cache.get(2)        # returns -1 (not found)
+cache.put(4, 4)     # evicts key 1
+cache.get(1)        # returns -1 (not found)
+cache.get(3)        # returns 3
+cache.get(4)        # returns 4
+```
 
 ## Graphs
 
