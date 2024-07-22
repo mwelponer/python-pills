@@ -1,8 +1,11 @@
 from typing import Optional
-import sys
+import sys, os
 
+# Get the parent directory
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+#print('parent_dir: ' + str(parent_dir))
 # setting path
-sys.path.append('../neetcode')
+sys.path.append(parent_dir)
 from utils import Node, buildGraph
 
 

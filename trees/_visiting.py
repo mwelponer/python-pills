@@ -1,9 +1,10 @@
 from typing import Optional
-import sys
+import sys, os
 from collections import deque
 
 # setting path
-sys.path.append('../neetcode')
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+sys.path.append(parent_dir)
 from utils import TreeNode
 
 
@@ -26,7 +27,6 @@ class Solution:
             print(printLevel)
             level += 1
 
-
     def DFS(self, root: TreeNode):
         st = [root]
         toPrint = "DSF stack: "
@@ -42,7 +42,6 @@ class Solution:
 
     def recursive(self, root: TreeNode):
 
-
         def preorder(root):
             if not root:
                 return ""
@@ -50,7 +49,6 @@ class Solution:
             self.toPrint += str(root.val) + ", "
             preorder(root.left)
             preorder(root.right)
-
 
         def inorder(root):
             if not root:
@@ -60,7 +58,6 @@ class Solution:
             self.toPrint += str(root.val) + ", "
             inorder(root.right)
 
-
         def postorder(root):
             if not root:
                 return ""
@@ -68,7 +65,6 @@ class Solution:
             postorder(root.left)
             postorder(root.right)
             self.toPrint += str(root.val) + ", "
-
 
         self.toPrint = "DFS recursive pre-order: "
         preorder(root)

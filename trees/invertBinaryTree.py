@@ -1,8 +1,9 @@
 from typing import Optional
-import sys
+import sys, os
 
 # setting path
-sys.path.append('../neetcode')
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
+sys.path.append(parent_dir)
 from utils import TreeNode
 
 
