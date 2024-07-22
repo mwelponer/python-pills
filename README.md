@@ -267,26 +267,26 @@ myFunc(1, m = 2) # mix but first positional arguments
 myFunc(n = 1, 2) # no! SyntaxError
 
 def myFunc(n, m = 0): # m is optional parameter, default is 0
-	print(n, m)
+    print(n, m)
 myFunc(3) # >>> 3, 0
 
 def myFunc(*args): # any number of positional arguments
-	print(args)
+    print(args)
 myFunc(1, 2, 3, 4) # >>> (1, 2, 3, 4)
 
 def myFunc(**kwargs): # any number of keyword arguments
-	print(kwargs)
-	print(kwargs['x'])
+    print(kwargs)
+    print(kwargs['x'])
 myFunc(x = 1, s = "hello", b = True) 
 # >>> {'x' : 1, 's' : 'hello', 'b' : True}
 # >>> 1
 
 def myFunc(a, b):
-	print(a, b)
+    print(a, b)
 myFunc(*[1, 2]) # >>> 1 2 
 
 def myFunc(a = 1, b = 2):
-	print(a, b)
+    print(a, b)
 myFunc(**{'a': 'hello' , 'b': 'world!'}) # >>> hello world!
     
 #### function stub
@@ -340,7 +340,7 @@ When some other file imports file to use for example `myFunction` (`from file im
 def myFunction(a, b):
 
 if __name__ == "__main__":
-	# do something
+    # do something
 ```
 
 ## non-local variable declaration
