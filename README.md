@@ -1,27 +1,29 @@
 Python pills
 ============
 Copyright (C) 2023 Michele Welponer
-- [Overview](#overview)
-  * [print](#print)
-  * [Syntax](#syntax)
-    + [if statement](#if-statement)
-    + [loops](#loops)
-  * [string](#string)
-  * [Functions](#functions)
-    + [pass by object reference](#pass-by-object-reference)
-    + [nested Functions](#nested-functions)
-    + [non-local variable declaration](#non-local-variable-declaration)
-    + [decorators](#decorators)
-    + [generators](#generators)
-    + [lambda function](#lambda-function)
-    + [map function](#map-function)
-    + [function parameters type annotations](#function-parameters-type-annotations)
-    + [timeit](#timeit)
-  * [Classes](#classes)
-    + [Inheritance and override](#inheritance-and-override)
-    + [iterable and iterator](#iterable-and-iterator)
-    + [abstract classes](#abstract-classes)
-  * [Enumerations](#enumerations)
+
+- [print](#print)
+- [Syntax](#syntax)
+  * [if statement](#if-statement)
+  * [loops](#loops)
+- [string](#string)
+- [mutable and immutable](#mutable-and-immutable)
+- [Functions](#functions)
+  * [pass by object reference](#pass-by-object-reference)
+  * [nested Functions](#nested-functions)
+  * [main function](#main-function)
+  * [non-local variable declaration](#non-local-variable-declaration)
+  * [decorators](#decorators)
+  * [generators](#generators)
+  * [lambda function](#lambda-function)
+  * [map function](#map-function)
+  * [function parameters type annotations](#function-parameters-type-annotations)
+  * [timeit](#timeit)
+- [Classes](#classes)
+  * [Inheritance and override](#inheritance-and-override)
+  * [iterable and iterator](#iterable-and-iterator)
+  * [abstract classes](#abstract-classes)
+- [Enumerations](#enumerations)
 - [Data Structures](#data-structures)
   * [Array](#array)
   * [Stack](#stack)
@@ -97,9 +99,7 @@ Copyright (C) 2023 Michele Welponer
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 
-# Overview
-
-## print
+# print
 
 ```python
 name = "Alice"
@@ -135,7 +135,7 @@ print('a', 'b', 'c', sep='/') # >>> /a/b/c
 print(name, end='.\n') # >>> Alice.
 ```
 
-## Syntax
+# Syntax
 
 ```python
 # WRITING ON MULTIPLE LINES
@@ -158,7 +158,7 @@ var = 5
 print(var, "has id:", id(var)) # >>> 5 has id: 4527716784
 ```
 
-### if statement
+## if statement
 
 ```python
 if n > 2:
@@ -169,7 +169,7 @@ else:
     print("less then 2")
 ```
 
-### loops
+## loops
 
 ```python
 while n > 0: 
@@ -182,14 +182,23 @@ for i in range(0, 5, 2) # from 0 to 5 excluded, step 2 >>> 0, 2, 4
 for _ in range(n): # _ indicates a throwaway variable, it won't be used
 ```
 
-## string
+# string
 
 ```python
 s = 'a$b$c'
+s = "a$b$c"
+
+ms = '''Multiline
+string!'''
+ms = """Multiline 
+string!"""
+
 arr = ["ab", "cd", "ef"]
 
 s1 = f'{s}$d' # >>> 'a$b$c$d'
 
+s[0] # char at index 0 >>> a
+s[-1] # last char >>> c
 s[0:3] # substring >>> a$b
 s[:3] # substring >>> a$b
 s[2:5] # substring >>> b$c
@@ -204,6 +213,7 @@ chr(97) # ascii code to ascii value >>> a
 
 'A'.lower() # char string to lowercase >>> a
 'a'.upper() # char string to uppercase >>> A
+r"C:\Users\Name" # raw strings treat backslashes as literal characters >>> C:\Users\Name
 
 import string
 string.ascii_lowercase # lowercase alphabet >>> abcdefghijklmnopqrstuvwxyz
@@ -211,8 +221,10 @@ string.ascii_uppercase # uppercase alfabet >>> ABCDEFGHIJKLMNOPQRSTUVWXYZ
 
 "?".join(arr) # join list elements with separator >>> ab?cd?ef
 s.split('$') # split string >>> ['a', 'b', 'c']
+s.strip() # removes any leading, and trailing whitespaces
 s.partition('$') # partition string >>> ('a', 'b', 'c')
 list(s) # string to list >>> ['a', '$', 'b', '$', 'c']
+"$" in s # contains substring >>> true
 
 s.find('b$') # first occurence of b$, -1 if not found >>> 2
 
@@ -222,23 +234,71 @@ import re
 [i for i in range(len(s)) if s[i] == '$'] # list comprehension >>> [1, 3]
 ```
 
-## Functions
+# mutable and immutable
+
+In Python, the terms "mutable" and "immutable" refer to the ability of an object to be changed after it is created
+
+**mutable**: `list`, `set`, `dict`
+**immutable**: `str`, `int`, `float`, `bool`, `bytes`, `tuple`
+
+```python
+### immutable type
+x = (1, 2)
+y = x # makes a copy because x is immutable
+x = (1, 2, 3)
+print(x, y) # >>> (1, 2, 3) (1, 2)
+
+### mutable type
+x = [1, 2]
+y = x # store a reference to the same mutable object
+x[0] = 100
+print(x, y) # >>> (100, 2) (100, 2)
+```
+
+# Functions
 
 ```python
 def myFunc(n, m):
     return n * m
-    
 myFunc(3, 4) # >>> 12
+myFunc(1, 2) # positional arguments 
+myFunc(n = 1, m = 2) # keyword arguments
+myFunc(1, m = 2) # mix but first positional arguments 
+myFunc(n = 1, 2) # no! SyntaxError
 
+def myFunc(n, m = 0): # m is optional parameter, default is 0
+	print(n, m)
+myFunc(3) # >>> 3, 0
+
+def myFunc(*args): # any number of positional arguments
+	print(args)
+myFunc(1, 2, 3, 4) # >>> (1, 2, 3, 4)
+
+def myFunc(**kwargs): # any number of keyword arguments
+	print(kwargs)
+	print(kwargs['x'])
+myFunc(x = 1, s = "hello", b = True) 
+# >>> {'x' : 1, 's' : 'hello', 'b' : True}
+# >>> 1
+
+def myFunc(a, b):
+	print(a, b)
+myFunc(*[1, 2]) # >>> 1 2 
+
+def myFunc(a = 1, b = 2):
+	print(a, b)
+myFunc(**{'a': 'hello' , 'b': 'world!'}) # >>> hello world!
+    
 #### function stub
 def myfunction():  
     pass # placeholder for future code
 ```
 
-### pass by object reference
+## pass by object reference
 
 Python’s argument-passing model is neither “*Pass by Value*” nor “*Pass by Reference*” but it is “**Pass by Object Reference**”. 
-Depending on the type of object you pass in the function, the function behaves differently. Immutable objects show “pass by value” whereas mutable objects show “pass by reference”.
+
+Depending on the type of object you pass in the function, the function behaves differently. ***Immutable*** objects show “pass by value” whereas ***mutable*** objects show “pass by reference”.
 
 ```python
 def func(va, tu, li):
@@ -255,7 +315,7 @@ func(v, t, l)
 print(v, t, l) # >>> 0 (0, 1, 2) [666, 1, 2]
 ```
 
-### nested Functions
+## nested Functions
 
 ```python
 def outer(a, b):
@@ -270,7 +330,20 @@ def outer(a, b):
 outer("a", "b") # >>> 'abc'
 ```
 
-### non-local variable declaration
+## main function
+
+When some other file imports file to use for example `myFunction` (`from file import myFunction`), `if __name__ == "__main__":`  avoids `do something` to be executed.
+
+
+```python
+# file.py 
+def myFunction(a, b):
+
+if __name__ == "__main__":
+	# do something
+```
+
+## non-local variable declaration
 
 ```python
 def outer(v1,v2):
@@ -288,7 +361,7 @@ outer(0, 0)
 # >>> outside helper 0 3
 ```
 
-### decorators
+## decorators
 
 Decorators allow us to wrap another function in order to extend the behaviour of the wrapped function, without permanently modifying it.
 
@@ -333,7 +406,7 @@ factorial(10)
 ```
 
 
-### generators
+## generators
 
 Generators are useful when we want to produce a large sequence of values, but we don't want to store all of them in memory at once. Generators use **def** like functions and **yield** instead of return. The `yield` keyword returns a value to the caller, but unlike `return`, it preserves the state of the function, allowing it to resume execution from where it left off
 
@@ -391,7 +464,7 @@ res = powsTwo(10)
 print(res)
 ```
 
-### lambda function
+## lambda function
 
 It is an anonymous function 
 
@@ -413,7 +486,7 @@ sorted(coords, key=lambda p: math.dist(p, (0,0)))
 ```
 
 
-### map function
+## map function
 
 It applies a function to each item in an iterable and returns the value of that function.
 The synax for `map()` function is `list(map(function, iterable))`
@@ -431,7 +504,7 @@ list( map(square, nums) ) # >>> [1, 4, 9, 16]
 list( map(lambda x : x**2, nums) ) # >>> [1, 4, 9, 16]
 ```
 
-### function parameters type annotations
+## function parameters type annotations
 
 ```python
 # specify that a variable should be a list of a specific type
@@ -454,7 +527,7 @@ def greet(name: Optional[str]) -> str:
         return  "Hello, there!"
 ```
 
-### timeit
+## timeit
 
 to measure the performance of a statement, e.g. the square of numbers from 0 to 99
 
@@ -479,7 +552,7 @@ timer = timeit.Timer(code_to_test)
 print(timer.timeit())
 ```
 
-## Classes
+# Classes
 
 ```python
 from datetime import date
@@ -537,7 +610,7 @@ ref. https://docs.python.org/3/reference/datamodel.html#specialnmes
 
 
 
-### Inheritance and override
+## Inheritance and override
 
 ```python
 from datetime import date
@@ -594,7 +667,7 @@ s.matricola # >>> 5678
 **NB**: the `super()` function allows to access the parent class’s methods and attributes 
 
 
-### iterable and iterator
+## iterable and iterator
 
 Example of **iterables** are *lists, tuples, set, dictionaries*, i.e. containers that hold data
 **Iterators** are objects that allows you to iterate over collections of data, implementing the *iterator design pattern*, i.e. they must implement the `__iter__()` and the `__next__()` methods
@@ -622,7 +695,7 @@ while val = it.next():
 ```
 
 
-### abstract classes
+## abstract classes
 
 `ABC` means abstract base class
 
@@ -645,7 +718,7 @@ class Pentagon(Polygon):
         print("I have 5 sides")
 ```
 
-## Enumerations
+# Enumerations
 
 ```python
 from enum import Enum
@@ -914,12 +987,13 @@ myC.clear() # clear
 immutable and hashable!
 
 ```python 
-myT = (1, 2, 3) 
+myT = (1, 2, 3)
+myT = tuple( [1, 2, 3] ) # create from list >>> (1, 2, 3)
 myT[0] # 1
 myT[-1] # 3
 # myT[0] = 0 # we cannot do this!!! tuples are immutable
 
-myMap[(2, 3)] = 7 # use tuple as key of an hashmap, list as a key won't work! (not hashable)
+myMap[ tuple([2, 3]) ] = 7 # use tuple as key of an hashmap, list is not hashable and won't work as a key!
 
 # creating a list of tuples (characters, actors)
 characters = ["Iron Man", "Spider Man", "Captain America"]
