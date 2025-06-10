@@ -2,28 +2,33 @@ Python pills
 ============
 Copyright (C) 2023 Michele Welponer
 
-- [print](#print)
-- [Syntax](#syntax)
-  * [if statement](#if-statement)
-  * [loops](#loops)
-- [string](#string)
+- [Overview](#overview)
+  * [print](#print)
+  * [Syntax](#syntax)
+    + [if statement](#if-statement)
+    + [loops](#loops)
+  * [string](#string)
 - [mutable and immutable](#mutable-and-immutable)
+- [Splat operator](#splat-operator)
+- [Walrus operator](#walrus-operator)
+- [Asterisk operator](#asterisk-operator)
 - [Functions](#functions)
-  * [pass by object reference](#pass-by-object-reference)
-  * [nested Functions](#nested-functions)
+    + [pass by object reference](#pass-by-object-reference)
+    + [nested Functions](#nested-functions)
   * [main function](#main-function)
   * [non-local variable declaration](#non-local-variable-declaration)
-  * [decorators](#decorators)
-  * [generators](#generators)
-  * [lambda function](#lambda-function)
-  * [map function](#map-function)
-  * [function parameters type annotations](#function-parameters-type-annotations)
-  * [timeit](#timeit)
-- [Classes](#classes)
-  * [Inheritance and override](#inheritance-and-override)
-  * [iterable and iterator](#iterable-and-iterator)
-  * [abstract classes](#abstract-classes)
-- [Enumerations](#enumerations)
+    + [decorators](#decorators)
+    + [generators](#generators)
+    + [lambda function](#lambda-function)
+    + [map function](#map-function)
+    + [type hinting](#type-hinting)
+    + [timeit](#timeit)
+  * [Classes](#classes)
+    + [Inheritance and override](#inheritance-and-override)
+    + [iterable and iterator](#iterable-and-iterator)
+    + [abstract classes](#abstract-classes)
+  * [Deep and Shallow copy](#deep-and-shallow-copy)
+  * [Enumerations](#enumerations)
 - [Data Structures](#data-structures)
   * [Array](#array)
   * [Stack](#stack)
@@ -96,24 +101,45 @@ Copyright (C) 2023 Michele Welponer
   * [binary representation](#binary-representation)
     + [tricks](#tricks)
   * [binary search](#binary-search)
+  * [Ultra violet ie uv](#ultra-violet-ie-uv)
+    + [Installation](#installation)
+    + [Project management](#project-management)
+    + [Managing dependencies](#managing-dependencies)
+    + [Working with Dependencies](#working-with-dependencies)
+    + [Lockfile management](#lockfile-management)
+    + [Environment management](#environment-management)
+    + [Typical Workflow](#typical-workflow)
+  * [Miniconda](#miniconda)
+    + [**Installing Miniconda on Ubuntu**](#--installing-miniconda-on-ubuntu--)
+    + [Useful commands](#useful-commands)
+  * [Virtual Env](#virtual-env)
+    + [Install](#install)
+    + [Useful commands](#useful-commands-1)
+  * [Pyenv](#pyenv)
+    + [Install](#install-1)
+    + [Useful commands](#useful-commands-2)
 
 <small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 
-# print
+
+# Overview
+
+## print
 
 ```python
 name = "Alice"
 age = 45
-balance = 5.61743
+balance = 5.617243
 mydict = {'name':'Alice', 'age':35}
-print( "Hello, " + name +  "!") # >>> Hello, Alice!
+myarr = [1, 2, 3]
+print( "Hello, " + str(name) +  "!") # >>> Hello, Alice!
 print( "Hello,", name, "!") # >>> Hello, Alice !
 
 ##### f-string 
 print( f"Hello, {name}, I am {age}!")
 f"result: {[n for n in range(5)]}" # expression >>> result: [0, 1, 2, 3, 4]
-f"Balance: ${balance:.2f}" # precision >>> Balance: 5.62
+f"Balance: ${balance:.2f}" # precision >>> Balance: 5.621
 f"{name:=^10}" # fill with = string lenght 10 center with ^ >>> ==Alice===
 f"thousand separators: {1000000:,}" # >>> thousand separators: 1,000,000
 f"separators + 2decimals: {1234567.9876:,.2f}" # >>> separators + 2decimals: 1,234,567.99
@@ -133,18 +159,19 @@ print( "Hello, %s!" % name) # %s converts name to string >>> Hello Alice!
 
 ##### usefull print arguments
 print('a', 'b', 'c', sep='/') # >>> /a/b/c
+print(*myarr, sep=' - ') # >>> 1 - 2 - 3
 print(name, end='.\n') # >>> Alice.
 ```
 
-# Syntax
+## Syntax
 
 ```python
 # WRITING ON MULTIPLE LINES
 print("one, " + "two, " \
-    + "three, " + "four, " \
-    + "five.")
+    	+ "three, " + "four, " \
+    	+ "five.")
 if ( n > 2 and
-    n < 10): print("ciao")
+    	n < 10): print("ciao")
 
 # MULTIPLE ASSIGNMENTS
 n, m = 0, "abc" # n = 0 and m = "abc"
@@ -159,7 +186,7 @@ var = 5
 print(var, "has id:", id(var)) # >>> 5 has id: 4527716784
 ```
 
-## if statement
+### if statement
 
 ```python
 if n > 2:
@@ -170,7 +197,7 @@ else:
     print("less then 2")
 ```
 
-## loops
+### loops
 
 ```python
 while n > 0: 
@@ -183,7 +210,7 @@ for i in range(0, 5, 2) # from 0 to 5 excluded, step 2 >>> 0, 2, 4
 for _ in range(n): # _ indicates a throwaway variable, it won't be used
 ```
 
-# string
+## string
 
 ```python
 s = 'a$b$c'
@@ -203,14 +230,18 @@ s[-1] # last char >>> c
 s[0:3] # substring >>> a$b
 s[:3] # substring >>> a$b
 s[2:5] # substring >>> b$c
-s[2:] # substring >>> b$c 
+s[2:] # substring >>> b$c arr = ["ab", "cd", "ef"]
+
+s1 = f'{s}$d' # >>> 'a$b$c$d'
+
+s[0:2] # substring >>> a$
 s[::-1] # reverse string >>> "c$b$a"
 s += "def" # a new string will be created >>> a$b$cdef
 
 int('123') + int('123') # string to int >>> 246
 str(123) + str(123) # int to string >>> 123123
-ord("a") # char to ascii code >>> 97
-chr(97) # ascii code to ascii value >>> a
+ord("a") # char to ascii codvalue >>> 97
+chr(97) # ascii codeint to ascii value >>> a
 
 'A'.lower() # char string to lowercase >>> a
 'a'.upper() # char string to uppercase >>> A
@@ -239,8 +270,8 @@ import re
 
 In Python, the terms "mutable" and "immutable" refer to the ability of an object to be changed after it is created
 
-**mutable**: `list`, `set`, `dict`
-**immutable**: `str`, `int`, `float`, `bool`, `bytes`, `tuple`
+- **mutable**: `list`, `set`, `dict`
+- **immutable**: `str`, `int`, `float`, `bool`, `bytes`, `tuple`
 
 ```python
 ### immutable type
@@ -256,15 +287,66 @@ x[0] = 100
 print(x, y) # >>> (100, 2) (100, 2)
 ```
 
+# Splat operator
+
+The `*` symbol (also known as the _splat_ operator) is used for several purposes, depending on the context. Its primary use is unpacking collections like lists, tuples, and other iterable objects into individual elements.
+
+```python
+my_tuple = (1, 2, 3) 
+add(*my_tuple) # >>> sum of unpacked elements 6
+
+numbers = [1, 2, 3, 4, 5] 
+a, *b, c = numbers # a=1, c=5, b=[2, 3, 4]
+
+print(*my_tuple) # >>> 1 2 3
+
+lst1 = [1, 2]
+lst2 = [3, 4] 
+combined = [*lst1, *lst2] # >>> [1, 2, 3, 4]
+
+def my_function(*args): print(args)
+my_function(1, 2, 3) # >>> (1, 2, 3)
+```
+`NOTE`: the `**` operator can also be used to unpack a dictionary and pass its key-value pairs as keyword arguments to a function. When you use `**`, it converts dictionary keys into function argument names and the dictionary values into the values of those arguments.
+
+```python
+def my_function(a, b, c):
+    print(f"a: {a}, b: {b}, c: {c}")
+
+my_dict = {'a': 10, 'b': 20, 'c': 30}
+my_function(**my_dict)  # Unpacks the dictionary as keyword arguments >>> a: 10, b: 20, c: 30
+```
+
+# Walrus operator
+
+Efficiently assigns values (using ``:=``) and uses them within the same expression.
+
+```python
+# Reading lines from a file until a blank line is found
+with open('file.txt', 'r') as f:
+    while (line := f.readline().strip()):
+        print(line)
+```
+
+# Asterisk operator
+
+**Tip**: Efficiently unpacks collections into separate elements.
+
+```python
+values = [1, 2, 3]
+func(*values)
+```
+
 # Functions
 
 ```python
 def myFunc(n, m):
-    return n * m
+    	return n * m
+	
 myFunc(3, 4) # >>> 12
 myFunc(1, 2) # positional arguments 
 myFunc(n = 1, m = 2) # keyword arguments
-myFunc(1, m = 2) # mix but first positional arguments 
+myFunc(1, m = 2) # mix but first must specify the positional arguments 
 myFunc(n = 1, 2) # no! SyntaxError
 
 def myFunc(n, m = 0): # m is optional parameter, default is 0
@@ -292,10 +374,10 @@ myFunc(**{'a': 'hello' , 'b': 'world!'}) # >>> hello world!
     
 #### function stub
 def myfunction():  
-    pass # placeholder for future code
+    	pass # placeholder for future code
 ```
 
-## pass by object reference
+### pass by object reference
 
 Python’s argument-passing model is neither “*Pass by Value*” nor “*Pass by Reference*” but it is “**Pass by Object Reference**”. 
 
@@ -316,16 +398,16 @@ func(v, t, l)
 print(v, t, l) # >>> 0 (0, 1, 2) [666, 1, 2]
 ```
 
-## nested Functions
+### nested Functions
 
 ```python
 def outer(a, b):
     c = "c"
 
     def inner():
-        # this inner function has access to
-        # all of the declared variables
-        return a + b + c
+            # this inner function has access to
+            # all of the declared variables
+            return a + b + c
     return inner()
 
 outer("a", "b") # >>> 'abc'
@@ -362,7 +444,7 @@ outer(0, 0)
 # >>> outside helper 0 3
 ```
 
-## decorators
+### decorators
 
 Decorators allow us to wrap another function in order to extend the behaviour of the wrapped function, without permanently modifying it.
 
@@ -370,24 +452,25 @@ declare a decorator to execute a function, calculate and print the duration of t
 
 ```python
 import time
-import math
 
-def calculate_time(func):
+def timer_decorator(func):
     # if function takes any arguments, can be added like this
-    def inner1(*args, **kwargs):
-        begin = time.time()
-        func(*args, **kwargs) # pass arguments to the function
-        end = time.time()
-        print("Time taken:", func.__name__, end - begin)
- 
-    return inner1
+    def wrapper(*args, **kwargs):
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        print(f"{func.__name__} executed in {end_time - start_time} seconds")
+        return result
+    return wrapper
+
 ```
 
 add the decorator to a function using '@',  like this:
 
 ```python
-@calculate_time # this is how to add a decorator 
-def factorial(num):
+@timer_decorator
+def example_function():
+    # Function logic here
     time.sleep(2) # to see an actual difference
     print(math.factorial(num))
 ```
@@ -395,7 +478,7 @@ def factorial(num):
 or directly like this:
 
 ```python
-factorial = calculate_time(factorial)
+factorial = timer_decorator(factorial)
 ```
 
 and finally we call the function
@@ -403,11 +486,11 @@ and finally we call the function
 ```python
 factorial(10)
 # >>> 3628800
-# >>> Time taken: factorial 2.006180286
+# >>> executed in 2.006180286 seconds
 ```
 
 
-## generators
+### generators
 
 Generators are useful when we want to produce a large sequence of values, but we don't want to store all of them in memory at once. Generators use **def** like functions and **yield** instead of return. The `yield` keyword returns a value to the caller, but unlike `return`, it preserves the state of the function, allowing it to resume execution from where it left off
 
@@ -465,7 +548,7 @@ res = powsTwo(10)
 print(res)
 ```
 
-## lambda function
+### lambda function
 
 It is an anonymous function 
 
@@ -477,26 +560,28 @@ import math
 ##### lambda as function
 area = lambda x : math.pi*(x**2) # to calculate circle area
 area(1) # >>> 3.14
+add_numbers = lambda x, y: x + y
+add_numbers(3, 5) >>> 8
 
 ##### to sort a list of coordinates by distance from the origin
 coords = [(7, 2), (3, 6), (0, 3), (4, 0)] 
 sorted( coords, key=lambda p : math.sqrt(p[0]**2 + p[1]**2) ) 
 # >>> [(0, 3), (4, 0), (3, 6), (7, 2)]
-sorted(coords, key=lambda p: math.dist(p, (0,0)))
+sorted( coords, key=lambda p : math.dist(p, (0,0)) )
 # >>> [(0, 3), (4, 0), (3, 6), (7, 2)]
 ```
 
 
-## map function
+### map function
 
 It applies a function to each item in an iterable and returns the value of that function.
 The synax for `map()` function is `list(map(function, iterable))`
 
 Example:
 
-```python
+```pythonlamb
 def square(n): # the function
-    return n*n
+    	return n*n
 nums = [1, 2, 3, 4] # the iterable
 
 list( map(square, nums) ) # >>> [1, 4, 9, 16]
@@ -505,7 +590,9 @@ list( map(square, nums) ) # >>> [1, 4, 9, 16]
 list( map(lambda x : x**2, nums) ) # >>> [1, 4, 9, 16]
 ```
 
-## function parameters type annotations
+### type hinting
+
+**Tip**: Embrace type hinting (Python 3.5+) to enhance code clarity, especially in larger projects.
 
 ```python
 # specify that a variable should be a list of a specific type
@@ -528,7 +615,7 @@ def greet(name: Optional[str]) -> str:
         return  "Hello, there!"
 ```
 
-## timeit
+### timeit
 
 to measure the performance of a statement, e.g. the square of numbers from 0 to 99
 
@@ -553,7 +640,7 @@ timer = timeit.Timer(code_to_test)
 print(timer.timeit())
 ```
 
-# Classes
+## Classes
 
 ```python
 from datetime import date
@@ -611,7 +698,7 @@ ref. https://docs.python.org/3/reference/datamodel.html#specialnmes
 
 
 
-## Inheritance and override
+### Inheritance and override
 
 ```python
 from datetime import date
@@ -661,42 +748,45 @@ Person.great() # static method >>> hello!
 Student.great() # inherit from parent >>> hello!
 
 print(Student('alice', 33, 1234)) # >>> student: alice, 33 years old
-s = Student.createByBirthYear('bob', 1980, 5678) # >>> student: bob, 44 years old
+s = Student.createByBirthYear('bob', 21980, 5678) # >>> student: bob, 442003 years old
 s.matricola # >>> 5678
 ```
 
 **NB**: the `super()` function allows to access the parent class’s methods and attributes 
 
 
-## iterable and iterator
+### iterable and iterator
 
 Example of **iterables** are *lists, tuples, set, dictionaries*, i.e. containers that hold data
 **Iterators** are objects that allows you to iterate over collections of data, implementing the *iterator design pattern*, i.e. they must implement the `__iter__()` and the `__next__()` methods
 
 ```python
-class myIterator:
-    def __init__(self, data): # initialize the iterator
+class MyIterator:
+    def __init__(self, data):  # Initialize the iterator
         self.data = data
         self.index = 0
-        
-    def __iter__(self): # __iter__ usually returns the object itself
+
+    def __iter__(self):  # __iter__ usually returns the object itself
         return self
 
-    def __next__(self): # __next__ defines how to navigate through the data
+    def __next__(self):  # __next__ defines how to navigate through the data
         if self.index < len(self.data):
-            item = self.data[index]
+            item = self.data[self.index]
             self.index += 1
             return item
         else:
-            raise StopIteration # special exception to rise when we reach end of sequence
+            raise StopIteration  # Special exception raised when we reach the end of the sequence
 
-it = myIterator([5, 6, 7, 8])
-while val = it.next():
-    print(val)        
+# Create an instance of MyIterator
+it = MyIterator([5, 6, 7, 8])
+
+# Iterate over the values
+for val in it:
+    print(val)    		
 ```
 
 
-## abstract classes
+### abstract classes
 
 `ABC` means abstract base class
 
@@ -706,7 +796,7 @@ from abc import ABC, abstractmethod
 class Polygon(ABC):
     @abstractmethod
     def noofsides(self):
-        pass
+        pass	
 
 class Triangle(Polygon):
     # overriding abstract method
@@ -719,7 +809,21 @@ class Pentagon(Polygon):
         print("I have 5 sides")
 ```
 
-# Enumerations
+## Deep and Shallow copy
+
+**Shallow copy**: Creates a new collection with references to the same objects.
+**Deepcopy**: Generates an independent clone of the original object and all its contents.
+
+
+```python
+# Duplicating a nested list with both shallow and deep copies
+import copy
+original = [[1, 2, 3], [4, 5, 6]]
+shallow = copy.copy(original)
+deep = copy.deepcopy(original)
+```
+
+## Enumerations
 
 ```python
 from enum import Enum
@@ -743,8 +847,8 @@ if Color.RED == Color.GREEN
 for color in Color:
     print(color) 
 # >>> Color.RED 
-# >>> Color.GREEN 
-# >>> Color.BLUE
+# >>> Color.GREEND 
+# >>> Color.BLUERED
 ```
 
 # Data Structures
@@ -758,6 +862,7 @@ dynamic non hashable arrays
 arr = [1, 2, 3] 
 [5, 'a', 3]
 [0] * 3 # >>> [0, 0, 0]
+list(range(5)) # >>> [0, 1, 2, 3, 4]
 [0 for _ in range(8)] # list comprehension >>> [0, 0, 0, 0, 0, 0, 0] 
 list(range(5)) # >>> [0, 1, 2, 3, 4]
 [i for i in range(5)] # >>> [0, 1, 2, 3, 4] 
@@ -874,7 +979,7 @@ if 1 in mySet: # check element, complexity O(1)
 mySet.remove(1) # remove element, complexity O(1)
 mySet.clear() # empty the set
 
-len(mySet) # number of elements in the set
+len(mytSet) # number of elements in the set
 if mySet: # checks if the set is non-empty
 
 # INITIALIZATION
@@ -902,9 +1007,11 @@ myMap['alice'] # get the value of key 'alice'
 myMap.pop("alice") # remove item that has key 'alice'
 myMap.clear() # empty the dictionary
 
-myMap.get("tom", 0) # if key not found returns 0
-myMap.get("tom", 'notFound') # if key not found returns 'notFound'
+dict1.update(dict2) # integrate in dict1 what is in dict2
+
+myMap.get("tom", -1) # retrieves a key's value, providing a default if the key doesn't exist
 myMap["tom"] = myMap.get("tom", 0) + 1 # safe increment
+myMap.setdefault("jack", "100") # Sets a default value if the key doesn't exist
 
 list(myMap.keys()) # list of keys 
 list(myMap.values()) # list of values
@@ -989,12 +1096,12 @@ immutable and hashable!
 
 ```python 
 myT = (1, 2, 3)
-myT = tuple( [1, 2, 3] ) # create from list >>> (1, 2, 3)
+myT = tuple( [1, 2, 3] ) # create from list >>> (1, 2, 3) 
 myT[0] # 1
 myT[-1] # 3
 # myT[0] = 0 # we cannot do this!!! tuples are immutable
 
-myMap[ tuple([2, 3]) ] = 7 # use tuple as key of an hashmap, list is not hashable and won't work as a key!
+myMap[ tuple([(2, 3]) )] = 7 # use tuple as key of an hashmap, list is not hashable and won't work as a key!as a key won't work! (not hashable)
 
 # creating a list of tuples (characters, actors)
 characters = ["Iron Man", "Spider Man", "Captain America"]
@@ -1126,19 +1233,19 @@ A node with max 2 children.
 - **depth**: tree root with no children has depth 1
 - **height**: tree root with no children has height 0
 - **balanced**: 
-    - height of left subt and height of right subt do not differ more then 1
+    	- height of left subt and height of right subt do not differ more then 1
     - left subt is balanced and right subt is balanced
 - **complete**:
-    - all levels but the last are completely filled
-    - in the last level nodes are as left as possible
-    **NB**: height is always logn, arrays representation does not have gaps between elements
+    	- all levels but the last are completely filled
+    	- in the last level nodes are as left as possible
+    	**NB**: height is always logn, arrays representation does not have gaps between elements
 - ***Heap***:
-    - it is a complete BT and 
-    - every parent has its value greater (or equal) then all its descendent
+    	- it is a complete BT and 
+    	- every parent has its value greater (or equal) then all its descendent
 - ***Binary Search Tree***:
-    - the left subt contains only nodes with keys  *less than*  the node's key
-    - the right subt contains only nodes with keys  *greater than* the node's key.
-    - both the left and right subt must also be BST
+    	- the left subt contains only nodes with keys  *less than*  the node's key
+    	- the right subt contains only nodes with keys  *greater than* the node's key.
+    	- both the left and right subt must also be BST
 
 ```python
 from collections import deque
@@ -1196,18 +1303,18 @@ def preOrder(root):
     print(root.val)
     preOrder(root.left)
     preOrder(root.right)
-    
+    	
 def inOrder(root):
     if not root: return 
     inOrder(root.left)
     print(root.val)
     inOrder(root.right)
-    
+    	
 def postOrder(root):
     if not root: return 
     postOrder(root.left)
     postOrder(root.right)
-    print(root.val)    
+    print(root.val)    	
 ```
 
 ## Trie or Prefix tree
@@ -1224,7 +1331,8 @@ class Trie:
     def __init__(self):
         self.root = TrieNode() # empty root node
         
-    def insert(self, word: str) -> None:
+    		
+	def insert(self, word: str) -> None:
         current = self.root 
         for c in word:
             # hm doesn't have already that letter
@@ -1233,16 +1341,19 @@ class Trie:
             current = current.children[c]
         current.endOfWord = True
             
-    def search(self, word: str) -> bool:
+    			
+	def search(self, word: str) -> bool:
         current = self.root 
         for c in word:
             if c not in current.children:
                 return False
             current = current.children[c]
         
-        return current.endOfWord
+        		
+		return current.endOfWord
     
-    def startsWith(self, prefix: str) -> bool:
+    	
+	def startsWith(self, prefix: str) -> bool:
         current = self.root 
         for c in prefix:
             if c not in current.children:
@@ -1358,13 +1469,14 @@ cache.get(2)        # returns -1 (not found)
 cache.put(4, 4)     # evicts key 1
 cache.get(1)        # returns -1 (not found)
 cache.get(3)        # returns 3
-cache.get(4)        # returns 4
+cache.get(4)        # returns 4		
 ```
+
 
 ## Graphs
 
-- **directed graph**: can be represented with an `adjacency map` under the form of an hashmap ``{node index : [neighbor nodes indices]}`` where the key is a node index and the value is the list of neighbors indices that the node points to
-    - DAG: directed acyclic graph
+- **directed graph**: can be represented with an `adjacency map` under the form of an hashmap ``*{node index : [neighborlist of nodes indices]}``}* where the key is a node index and the value is the list of neighbors indices that the node n points to
+    	- DAG: directed acyclic graph
 
 - **undirected graph**: can be represented with an array edges [a, b], or with an adjacency list, in case that the `number of unique edges == number of nodes` for sure we have a cycle!
 
@@ -1402,11 +1514,11 @@ class Node:
 - **DFS**: $O(n)$ it traverse the graph using recursion and it uses an `hashset` to detect cycles. It can be traversed non recursively using a `stack`
 - **BFS**: $O(n)$ it traverse the graph using a `queue` and it uses an `hashset` to detect cycles. The traversal is done layer by layer 
 - **Number of Connected component in UG** (undirected graph): $O(E+V)$ if it is expressed as an array of edges, E to read all the edged to transform it into an adjacency list. Then we apply DFS on every vertex checking if the vertex has already been visited (same connected component)
-    - **Union-Find**: $O(nlogn)$ used to calculate the number of connected components or to union together disjonit sets of nodes (connected components) and combine them together efficiently, it requires a `forest of trees`.  **HOWTO**: we maintain a `parent array` initially with the index of the nodes (each node initially is parent of itself), and a `rank array` representing for each node the size of the connected component, initially each node is set to 1 (each node initially has rank 1). Then we start reading the edges array given as input and we start to connect the nodes (higher rank nodes become parents of lower rank ones). **NB**: When connecting two nodes, we first need to find the ancestors of both nodes, then we connect the anchestors together. Connecting nodes means update the values of the parent array and relative rank one. During this process, each time we make a union we decrement the number of vertices. The result is the number of connected components!
+    	- **Union-Find**: $O(nlogn)$ used to calculate the number of connected components or to union together disjonit sets of nodes (connected components) and combine them together efficiently, it requires a `forest of trees`.  **HOWTO**: we maintain a `parent array` initially with the index of the nodes (each node initially is parent of itself), and a `rank array` representing for each node the size of the connected component, initially each node is set to 1 (each node initially has rank 1). Then we start reading the edges array given as input and we start to connect the nodes (higher rank nodes become parents of lower rank ones). **NB**: When connecting two nodes, we first need to find the ancestors of both nodes, then we connect the anchestors together. Connecting nodes means update the values of the parent array and relative rank one. During this process, each time we make a union we decrement the number of vertices. The result is the number of connected components!
 - **Topological sort**: $O(E+V)$ used in DAG (directed acyclic graph) to read the nodes in a correct sequence, it uses an `hashset` to detect cycles as it uses DFS, optionally a `stack` if DFS is not written recursively and possibly another hashset to determine the already processed nodes. **HOWTO**: turn the edges array into an adjacency list, then run DFS to each node, avoiding repeated nodes saved into the hashset and break as soon as a cycle is detected (through the uso of another hashset). If we have a cycle then there is no possible solution
 - **Dijkstra**: $O(ElogV)$ used to find the shortest path from a vertex to all the others, it uses a `min-heap` (a.k.a. `priority queue`) because it looks at the minimum edge E and an `hashset` to look for cycles. **HOWTO**: we insert the starting node inside a minheap with weight = 0, then we pop it, we check in the hashset if node was already seen, if not we add it to the hashset and we process all its adjacent nodes (BFS). That means we push neighboars into the heap with updated weights (neighboar weight = parent weight + neighboar weight). The heap elements are tuples (weight, node), so they will be popped according to the weight.
 - **Minimum spanning tree** 
-    - **Prim's Kruskal**: $O(n^2logn)$ used to find the minimum spanning tree. At the beginning we have vertices without edges, we want to find the most efficient way to connect all vertices without forming cycles, i.e. V-1 edges. Basically we start at any single node and we apply BFS checking not to repeat nodes using an `hashset` and checking the frontier of nodes using a `minheap` in order to start adding nodes from the minimum possible cost ones first. We stop when the number of nodes in the hashset is equal to the total number of nodes. **HOWTO**: we start from a node n, add it to the hashset visit, add it to the minheap frontier with null weigth (0, n). We then pop it out from the frontier, add it to the hashset, increment a cost variable by the weight of the popped node, then we add all node's neighboars to the frontier (checking the given adjacency list). We then continue to 1. pop the minimum from the frontier, 2. if in hashset continue 3. add it to the hashset, 4. update the cost variable and 5. add neighboars back into the frontier, till the hashset size equals the total number of nodes.
+    	- **Prim's Kruskal**: $O(n^2logn)$ used to find the minimum spanning tree. At the beginning we have vertices without edges, we want to find the most efficient way to connect all vertices without forming cycles, i.e. V-1 edges. Basically we start at any single node and we apply BFS checking not to repeat nodes using an `hashset` and checking the frontier of nodes using a `minheap` in order to start adding nodes from the minimum possible cost ones first. We stop when the number of nodes in the hashset is equal to the total number of nodes. **HOWTO**: we start from a node n, add it to the hashset visit, add it to the minheap frontier with null weigth (0, n). We then pop it out from the frontier, add it to the hashset, increment a cost variable by the weight of the popped node, then we add all node's neighboars to the frontier (checking the given adjacency list). We then continue to 1. pop the minimum from the frontier, 2. if in hashset continue 3. add it to the hashset, 4. update the cost variable and 5. add neighboars back into the frontier, till the hashset size equals the total number of nodes.
 - **Floyd warshall's**: 
 
 
@@ -1420,10 +1532,17 @@ ITERATIONS = 1_000_000 # _ here is just to make the number more readable
 # ROUND & CAST DECIMAL NUMBERS
 round(n) # is a function to round a float, 
 int(n) # cast a float to an integer, get rid of the decimal part by truncating it
-int(-3.6) # -3
-round(-3.6) # -4 
+```
 
-math.fmod(8, 7) # division remainder or modulo >>> 1.0
+**`NOTE`**: Python’s `round()` function uses a rounding method called **"round half to even"**, also known as **bankers' rounding**. Instead of always rounding 0.5 up(or down), Python rounds to the nearest even integer when a number is exactly halfway between two integers. 
+
+```python
+int(4.7) # 4
+int(-3.6) # -3
+round(-3.6) # -4
+round(-2.5) # -2
+
+math.fmod(8, 7) # division remainder or modulo >>>math.fmod(8, 7) # 1.0
 math.floor(3 / 2) # 1
 math.ceil(3 / 2) # 2
 math.sqrt(9) # 3.0
@@ -1432,11 +1551,11 @@ math.pow(2, 3) # 8.0
 
 5 / 2 # decimal division 2.5
 5 // 2 # integer division 2
--3 // 2 # Issue: it rounds towards zero to -2
+-3 // 2 # Issue!!! : it rounds towards zero to -2
 int(-3 / 2) # workaround: decimal division and cast to int, gives -1
 
 10 % 3 # modular reminder, gives 1
--10 % 3 # Issue: returns 1
+-10 % 3 # Issue!!! : returns 1
 math.fmod(-10, 3) # workaround: use math fmod, gives -1
 
 arr = [4, 1, 3, 1]
@@ -1456,11 +1575,11 @@ float("-inf") # negative infinity
 ## min max
 
 ```python
-nums = [3, 5, 9, 1, -5]
+nums = min([3, 5, 9, 1, -5]
 min(nums) # >>> -5
 max(nums) # >>> 9
 nums.index(min(nums)) # index of min num >>> 4
-nums.index(max(nums)) # index of max num >>> 2
+nums.index(max(nums)) # index of max num[3, 5, 9, 1, -5]) # >>> 29
 
 min("abcdefghijklmnopqrstuvwxyz") # >>> 'a'
 min("aA") # >>> 'A' because ord('A') = 65 and ord('a') = 97
@@ -1616,8 +1735,8 @@ np.arange(0, 10, 2, int) # start, end, increment, type >>> [0, 2, 4, 6, 8]
 # initialization using datatype
 datatype = [('name', 'U7'), ('age', int), ('height', int)]
 people = [('Alice', 25, 170), 
-          ('Bob', 35, 180), 
-          ('Charlie', 35, 175)]
+        		  ('Bob', 35, 180), 
+        		  ('Charlie', 35, 175)]
 array = np.array(people, dtype = datatype) 
 
 ##### dimension
@@ -1635,13 +1754,13 @@ arr[1][2] # >>> 6
 ##### iterating
 arr = np.array([1, 2, 3])
 for x in arr: 
-    print(x)
+    	print(x)
 for i, x in np.ndenumerate(arr):
-    print(i, x)
-    
+    	print(i, x)
+    	
 arr = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])  
 for x in np.nditer(arr):  # iterate on every scalar, regardless of the dimensionality
-    print(x)
+    	print(x)
 
 ##### type
 arr = np.array((0, 1, 2, 3))
@@ -1737,8 +1856,8 @@ np.sort(array, axis=1) # sort column wise, same as axis=-1
 #### sorting with order
 datatype = [('name', 'U7'), ('age', int), ('height', int)]
 people = [('Alice', 25, 170), 
-          ('Bob', 35, 180), 
-          ('Charlie', 35, 175)]
+        		  ('Bob', 35, 180), 
+        		  ('Charlie', 35, 175)]
 array = np.array(people, dtype = datatype) 
 
 np.sort(array, order='height') # sorting based on height
@@ -1766,9 +1885,9 @@ a.transpose() # Returns an array with axes transposed >>> [[1, 3], [2, 4]]
 - **identity matrix** $I$: a square matrix with all 1 on the main diagonal, all the rest 0. $M*I = M = M*I$ 
 - **diagonal matrix**: elements only on the main diagonal, all rest is 0
 - **inverse matrix** $A^{-1}$  properties:
-    - $A*A^{-1} = I$
-    - $(AB)^{-1} = A^{-1}B^{-1}$
-    - $(A^T)^{-1} = (A^{-1})^T$
+    	- $A*A^{-1} = I$
+    	- $(AB)^{-1} = A^{-1}B^{-1}$
+    	- $(A^T)^{-1} = (A^{-1})^T$
 
 ## sum 
 
@@ -1817,7 +1936,7 @@ Python example of **dot product** and **matmul**
 k = 3 # scalar 
 a = np.array([[1, 2]]) # 1 by 2 matrix
 b = np.array([[5, 6], # 2 by 2 matrix
-              [7, 8]])
+            			  [7, 8]])
 
 np.dot(k, a) # scalar product >>> [[3 6]]
 np.dot(a, k) # scalar product >>> [[3 6]]
@@ -2215,7 +2334,7 @@ def print_numbers():
 if __name__ == "__main__":
     thread = threading.Thread(target=print_numbers)
     thread.start()
-    thread.join(); # tells main thread to wait the end of thread before proceeding
+    	thread.join(); # tells main thread to wait the end of thread before proceeding
 ```
 
 ## multi processing
@@ -2287,10 +2406,10 @@ A | B |*and*| *or* | *xor* | nand
     - 2 -> 10
     - 4 -> 100
     - 8 -> 1000
-- every time we do ``n & (n - 1)`` we basically remove the first 1 we encounter - starting from the less significant bit (right most) - from the `n` binary representation.
-- in particular, if `n` is a power of 2, the binary representation has only a single 1 and so  ``n & (n - 1) = 0``
+- every time we do ``n & (n - 1)`` we basically remove the first 1 we encounter - starting from the less significant bit (right most) - from the `n`n binary representation.
+- in particular, if `n`n is a power of 2, the binary representation has only a single 1 and so  ``n & (n - 1) = 0``
 - XOR of 2 equal numbers will produce 0
-- ``n >> i`` (shift right) by `i` times means cut `i` bits from the end (right-most), so it means to divide by 2 `i` times
+- ``n >> i`` (shift right) by `i`$i$ times means cut `i`$i$ bits from the end (right-most), so it means to divide by 2 `i`two i times
 - ``n & 1`` gives us the least significant bit (right most) as well as ``n % 2``
 
 ```python
@@ -2319,6 +2438,7 @@ def bsearch(A, target):
             l = mid + 1
         else:
             r = mid - 1
+
     return -1
 ```
 
@@ -2336,3 +2456,194 @@ i = i if i != len(A) and A[i] == target else -1
 i = bisect_right(A, target) 
 i = i-1 if i != 0 and A[i-1] == target else -1
 ```
+
+
+## Ultra violet ie uv
+
+### Installation
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+or 
+pip install uv
+```
+
+### Project management
+
+```bash
+# initialize a project: Creates a `requirements.lock` file to track dependencies.
+$ uv init <project> 
+```
+
+### Managing dependencies
+
+```bash
+uv add <package> # Installs a package and updates `requirements.lock` automatically.
+uv add <package>==<version> # Add a Specific Version of a Package
+uv remove <package> # Uninstalls the package and updates the `requirements.lock` file
+uv list # Shows the current dependencies from the lock file
+```
+
+### Working with Dependencies
+
+```bash
+uv install # Installs dependencies defined in `requirements.lock`
+uv reinstall # Cleans the current environment and reinstalls everything from `requirements.lock`
+uv upgrade # Updates all dependencies to their latest compatible versions
+uv upgrade <package>
+```
+
+### Lockfile management
+
+```bash
+uv check # Compares `requirements.lock` with the current environment
+uv lock # Updates the lockfile based on the current environment
+```
+
+### Environment management
+
+```bash
+python -m venv .venv # Create a Virtual Environment
+source .venv/bin/activate # Activate the Virtual Environment
+deactivate # Deactivate the Environment
+```
+
+### Typical Workflow
+
+Here’s a typical workflow using UV:
+
+1.  Create and activate a virtual environment:
+    
+    ```bash 
+    python -m venv .venv
+    source .venv/bin/activate
+    ```
+    
+2.  Initialize UV:
+
+    `uv init` 
+    
+3.  Add dependencies:
+    
+    `uv add requests flask` 
+    
+4.  Install dependencies in another environment:
+
+    `uv install` 
+    
+5.  Check for updates:
+
+    `uv upgrade` 
+    
+6.  Remove a package:
+    
+    `uv remove flask`
+
+
+## Miniconda
+
+### **Installing Miniconda on Ubuntu**
+
+Miniconda is a lightweight distribution of Anaconda, and installing it on Ubuntu is straightforward. Here's how you can do it:
+    
+```bash
+$ wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+$ sha256sum Miniconda3-latest-Linux-x86_64.sh
+$ bash Miniconda3-latest-Linux-x86_64.sh
+$ conda update -n base -c defaults conda # update miniconda
+$ vim ~/.bashrc
+	alias miniconda='source ~/miniconda3/bin/activate'
+```
+
+### Useful commands
+
+```bash
+$ miniconda # activate (base) venv
+
+$ conda create -n myenv python=3.10 # create new env
+$ conda env list # list all envs
+$ conda activate myenv # activate an env
+$ conda deactivate
+$ conda remove -n myenv --all # remove myenv environment
+
+$ conda install numpy
+$ conda install -c conda-forge numpy # install from a specific channel
+$ conda list # list installed packages 
+$ conda update numpy
+$ conda remove numpy` 
+
+$ conda update conda 
+$ conda search pandas
+$ conda clean --all # clean conda cache
+$ conda env export > environment.yml # export env 
+$ conda env create -f environment.yml # create env from a file
+
+pip freeze > requirements.txt # save all dependencies
+pip install -r requirements.txt
+```
+
+## Virtual Env
+
+**`venv`** (short for **virtual environment**) is a module in Python that allows you to create isolated environments for your Python projects. Each virtual environment has its own installation of Python and its own set of dependencies, separate from the global Python environment. This isolation helps avoid conflicts between packages required by different projects and ensures that your project dependencies remain consistent across systems.
+
+### Install
+```
+sudo apt-get install python3-venv
+```
+
+### Useful commands
+
+```bash
+# manage virtual environment
+python3 -m venv <env_name>  # Creating a Virtual Environment, e.g. python3 -m venv .venv
+source <env_name>/bin/activate  # Activating the Virtual Environment 
+deactivate  # Deactivating the Virtual Environment
+rm -rf <env_name>  # Deleting the Virtual Environment Directory
+
+# manage pip packages
+pip list  # Listing all Installed Packages
+pip install <package_name>  # Installing a Package in the Virtual Environment
+pip uninstall <package_name>  # Uninstalling a Package from the Virtual Environment
+pip show <package_name>  # Viewing Detailed Package Information
+pip search <query>  # Searching for Packages on PyPI (Deprecated in newer pip versions)
+pip list --user # list all pip packages installed by current user
+pip freeze --user | xargs pip uninstall -y
+# uninstall all user-installed packages
+
+# requirements
+pip freeze > requirements.txt  # Saving Installed Packages to `requirements.txt`
+pip install -r requirements.txt  # Installing Packages from `requirements.txt`
+
+# python version
+python --version  # Checking the Python Version in the Virtual Environment
+which python  # Checking the Location of the Python Executable (Linux/macOS)
+
+pip install --upgrade pip  # Upgrading pip in the Virtual Environment
+```
+
+## Pyenv
+
+**`NOTE`**:  usefull when need to install different versions of python on OSX M3
+
+### Install
+
+```bash
+brew install pyenv pyenv-virtualenv
+
+vim ~/.zshrc
+	eval  "$(pyenv init -)"  
+	if  which pyenv-virtualenv-init > /dev/null; then  eval  "$(pyenv virtualenv-init -)"; fi
+```
+
+### Useful commands
+
+```bash
+pyenv install -l # see the list of python versions available
+pyenv install 3.12.0 # install a specific version of python
+
+# from within your project folder 
+pyenv versions # see the list of python versions installed 
+pyenv virtualenv 3.12.0 myProject # create myProject environment using a specific python version
+pyenv local myProject # activate the environment 
+```
+
+ref. https://medium.com/marvelous-mlops/the-rightway-to-install-python-on-a-mac-f3146d9d9a32
